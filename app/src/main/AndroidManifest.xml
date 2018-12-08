@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Question.AddQuestion"></activity>
+        <activity android:name=".Question.AddQuestion" />
+        <activity android:name=".Customer.Cus_Activity" />
+        <activity android:name=".Question.Question_List_Activity"></activity>
     </application>
 
 </manifest>
