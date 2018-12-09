@@ -25,8 +25,18 @@ public class AddQuestion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
 
-        this.edQuestion = (EditText) this.findViewById(R.id.edQuestion);
+        addObject();
+        addEvents();
 
+    }
+
+    // Add Object
+    public void addObject() {
+        edQuestion = (EditText) findViewById(R.id.edQuestion);
+    }
+
+    // Add Events
+    public void addEvents() {
         Intent intent = this.getIntent();
         this.question = (Question) intent.getSerializableExtra("question");
         if (question == null) {
@@ -70,7 +80,7 @@ public class AddQuestion extends AppCompatActivity {
     }
 
     // Khi Activity này hoàn thành,
-    // có thể cần gửi phản hồi gì đó về cho Activity đã gọi nó.
+    // Gửi phản hồi gì đó về cho Activity đã gọi nó.
     @Override
     public void finish() {
 

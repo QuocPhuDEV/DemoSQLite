@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // Tên cơ sở dữ liệu.
-    private static final String DATABASE_NAME = "DBQuestion";
+    private static final String DATABASE_NAME = "DB_Customer";
 
 
     // Tên bảng: Question.
