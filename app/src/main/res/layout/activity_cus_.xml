@@ -80,14 +80,16 @@
                 android:id="@+id/rdoMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Male" />
+                android:text="Male"
+                android:onClick="onRadioButtonClicked"/>
 
             <RadioButton
                 android:id="@+id/rdoFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:text="Female" />
+                android:text="Female"
+                android:onClick="onRadioButtonClicked"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -146,13 +148,13 @@
             android:layout_height="wrap_content"
             android:text="Address" />
 
-        <EditText
-            android:id="@+id/edAddress"
+        <Spinner
+            android:id="@+id/spZone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:hint="Ho Chi Minh City"
-            android:textSize="15dp" />
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"></Spinner>
     </LinearLayout>
 
     <LinearLayout
