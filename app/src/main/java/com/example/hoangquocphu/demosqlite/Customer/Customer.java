@@ -7,22 +7,22 @@ public class Customer implements Serializable {
     private int CusID;
     private String FullName;
     private String DateOfBirth;
+    private String Gender;
     private String Email;
-    private String Address;
     private String PhoneNumber;
-    private int Gender;
+    private String Address;
+
 
     public Customer() {
     }
 
-    public Customer(int cusID, String fullName, String dateOfBirth, String email, String address, String phoneNumber, int gender) {
-        CusID = cusID;
+    public Customer(String fullName, String dateOfBirth, String gender, String email, String phoneNumber, String address) {
         FullName = fullName;
         DateOfBirth = dateOfBirth;
-        Email = email;
-        Address = address;
-        PhoneNumber = phoneNumber;
         Gender = gender;
+        Email = email;
+        PhoneNumber = phoneNumber;
+        Address = address;
     }
 
     public int getCusID() {
@@ -49,20 +49,20 @@ public class Customer implements Serializable {
         DateOfBirth = dateOfBirth;
     }
 
+    public String getGender() {
+        return Gender;
+    }
+
+    public void setGender(String gender) {
+        Gender = gender;
+    }
+
     public String getEmail() {
         return Email;
     }
 
     public void setEmail(String email) {
         Email = email;
-    }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String address) {
-        Address = address;
     }
 
     public String getPhoneNumber() {
@@ -73,11 +73,16 @@ public class Customer implements Serializable {
         PhoneNumber = phoneNumber;
     }
 
-    public int getGender() {
-        return Gender;
+    public String getAddress() {
+        return Address;
     }
 
-    public void setGender(int gender) {
-        Gender = gender;
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    @Override
+    public String toString() {
+        return this.FullName + " - " + this.Address;
     }
 }
