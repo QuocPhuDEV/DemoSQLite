@@ -5,6 +5,15 @@
         android:id="@+id/itemNewServey"
         android:title="New Servey" />
     <item
-        android:id="@+id/idScanCustomer"
+        android:id="@+id/itemNewQuestion"
+        android:title="New Question" />
+    <item
+        android:id="@+id/itemScanCustomer"
         android:title="Scan Customer" />
+    <item
+        android:id="@+id/itemCustomerList"
+        android:title="Customer List" />
+    <item
+        android:id="@+id/itemQuestionList"
+        android:title="Question List" />
 </menu>
