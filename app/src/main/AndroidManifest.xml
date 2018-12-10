@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hoangquocphu.demosqlite">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +21,17 @@
         </activity>
         <activity android:name=".Question.AddQuestion" />
         <activity android:name=".Customer.Cus_Activity" />
-        <activity android:name=".Question.Question_List_Activity"></activity>
+        <activity android:name=".Question.Question_List_Activity" />
+        <activity android:name=".Customer.Cus_List_Activity" />
+        <activity android:name=".Questions.Ques_AddNew_Activity" />
+        <activity android:name=".Questions.Ques_List_Activity" />
+        <activity android:name=".QRCode.Scan_Activity" />
+
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity android:name=".QRCode.Scan_Result_Activity"></activity>
     </application>
 
 </manifest>
