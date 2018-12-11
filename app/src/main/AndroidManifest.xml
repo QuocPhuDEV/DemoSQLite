@@ -31,7 +31,8 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".QRCode.Scan_Result_Activity"></activity>
+        <activity android:name=".QRCode.Scan_Result_Activity" />
+        <activity android:name=".Questions_ExpandableList.Ques_Detail_List_Activity"></activity>
     </application>
 
 </manifest>
