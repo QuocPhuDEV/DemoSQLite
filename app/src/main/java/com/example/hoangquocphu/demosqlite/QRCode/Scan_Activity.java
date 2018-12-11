@@ -2,10 +2,8 @@ package com.example.hoangquocphu.demosqlite.QRCode;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
-import android.opengl.GLSurfaceView;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -64,7 +62,12 @@ public class Scan_Activity extends AppCompatActivity {
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource = new CameraSource.Builder(this, barcodeDetector)
-                .setRequestedPreviewSize(640, 480).build();
+                .setRequestedPreviewSize(1024, 768)
+                .setRequestedPreviewSize(300, 400)
+                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                .setAutoFocusEnabled(true)
+                .setRequestedFps(30.0f)
+                .build();
     }
     //endregion
 
@@ -131,7 +134,7 @@ public class Scan_Activity extends AppCompatActivity {
                             //cameraSource.stop();
 
                             // phát âm thanh
-                            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beep);
+                            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.scanone);
                             mediaPlayer.start();
 
                             // Truyền biến sang màn hình kết quả
