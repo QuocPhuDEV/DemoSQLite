@@ -63,7 +63,6 @@ public class Scan_Activity extends AppCompatActivity {
                 .setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource = new CameraSource.Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(1024, 768)
-                .setRequestedPreviewSize(300, 400)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setAutoFocusEnabled(true)
                 .setRequestedFps(30.0f)

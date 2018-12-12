@@ -1,15 +1,15 @@
-package com.example.hoangquocphu.demosqlite.Questions;
+package com.example.hoangquocphu.demosqlite.Questions_Type;
 
 import java.io.Serializable;
 
-public class Questions implements Serializable {
+public class QuestionsType implements Serializable {
     private int Question_ID;
     private String Question;
 
-    public Questions() {
+    public QuestionsType() {
     }
 
-    public Questions(String question) {
+    public QuestionsType(String question) {
         Question = question;
     }
 

@@ -23,8 +23,8 @@
         <activity android:name=".Customer.Cus_Activity" />
         <activity android:name=".Question.Question_List_Activity" />
         <activity android:name=".Customer.Cus_List_Activity" />
-        <activity android:name=".Questions.Ques_AddNew_Activity" />
-        <activity android:name=".Questions.Ques_List_Activity" />
+        <activity android:name=".Questions_Type.QuesType_AddNew_Activity" />
+        <activity android:name=".Questions_Type.QuesType_List_Activity" />
         <activity android:name=".QRCode.Scan_Activity" />
 
         <meta-data
@@ -32,7 +32,8 @@
             android:value="barcode" />
 
         <activity android:name=".QRCode.Scan_Result_Activity" />
-        <activity android:name=".Questions_ExpandableList.Ques_Detail_List_Activity"></activity>
+        <activity android:name=".Questions_ExpandableList.Ques_Detail_List_Activity" />
+        <activity android:name=".Questions_ExpandableList.Ques_AddNew_Activity"></activity>
     </application>
 
 </manifest>

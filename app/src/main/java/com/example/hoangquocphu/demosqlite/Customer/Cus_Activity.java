@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -17,9 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hoangquocphu.demosqlite.Question.AddQuestion;
-import com.example.hoangquocphu.demosqlite.Question.Question_List_Activity;
-import com.example.hoangquocphu.demosqlite.Questions.Ques_List_Activity;
+import com.example.hoangquocphu.demosqlite.Questions_Type.QuesType_List_Activity;
 import com.example.hoangquocphu.demosqlite.R;
 
 import java.util.ArrayList;
@@ -130,6 +127,7 @@ public class Cus_Activity extends AppCompatActivity {
         list.add("Nghệ An");
         list.add("An Giang");
         list.add("Đồng Nai");
+        list.add("Quảng Bình");
 
         // thêm danh sách dữ liệu vào adapter
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, list);
@@ -160,7 +158,7 @@ public class Cus_Activity extends AppCompatActivity {
     public void btnNext(View view) {
         SaveCustomerInformation();
 
-        Intent intent = new Intent(Cus_Activity.this, Ques_List_Activity.class);
+        Intent intent = new Intent(Cus_Activity.this, Cus_List_Activity.class);
         startActivity(intent);
     }
 
@@ -177,19 +175,19 @@ public class Cus_Activity extends AppCompatActivity {
         String mail = this.edMail.getText().toString();
         String phone = this.edPhone.getText().toString();
         String address = this.spZone.getSelectedItem().toString();
-        String gender = "Male";
-//        if (rdoMale.isChecked()) {
-//            gender = "Male";
-//        } else {
-//            gender = "Female";
-//        }
-
+        String gender = "";
+        if (rdoMale.isChecked()) {
+            gender = "Male";
+        } else {
+            gender = "Female";
+        }
 
         // Thêm giá trị vào class
         this.customer = new Customer(fullName, dateOfBirth, gender, mail, phone, address);
 
         // Thực hiện insert
-        cus_dbHelper.addCustomer(customer);
+        cus_dbHelper.addCustomer(customer, getApplicationContext());
+
 
 //        this.needRefresh = true;
 //        this.onBackPressed();

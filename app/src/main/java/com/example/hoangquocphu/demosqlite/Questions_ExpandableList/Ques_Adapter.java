@@ -13,12 +13,12 @@ import com.example.hoangquocphu.demosqlite.R;
 import java.util.HashMap;
 import java.util.List;
 
-public class Custom_Adapter extends BaseExpandableListAdapter {
+public class Ques_Adapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
 
-    public Custom_Adapter(Context context, List<String> expandableListTitle, HashMap<String, List<String>> expandableListDetail) {
+    public Ques_Adapter(Context context, List<String> expandableListTitle, HashMap<String, List<String>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;

@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/itemNewServey"
-        android:title="New Servey" />
+        android:id="@+id/itemNewCustomer"
+        android:title="New Customer" />
     <item
         android:id="@+id/itemNewQuestion"
         android:title="New Question" />
+    <item
+        android:id="@+id/itemNewQuestionType"
+        android:title="New Question Type" />
     <item
         android:id="@+id/itemScanCustomer"
         android:title="Scan Customer" />
@@ -14,6 +17,6 @@
         android:id="@+id/itemCustomerList"
         android:title="Customer List" />
     <item
-        android:id="@+id/itemQuestionList"
-        android:title="Question List" />
+        android:id="@+id/itemQuestionTypeList"
+        android:title="Question Type List" />
 </menu>

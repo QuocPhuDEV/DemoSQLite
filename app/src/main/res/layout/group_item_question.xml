@@ -7,7 +7,7 @@
         android:id="@+id/tvQuestionEx"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:padding="5dp"/>
 
 </LinearLayout>

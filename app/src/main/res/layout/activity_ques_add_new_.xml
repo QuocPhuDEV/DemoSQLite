@@ -5,14 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Questions.Ques_AddNew_Activity">
+    tools:context=".Questions_ExpandableList.Ques_AddNew_Activity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Thêm Mới Câu Hỏi"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/edNewQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Enter new question"
+        android:hint="Nhập câu hỏi"
         android:padding="10dp" />
 
     <LinearLayout
@@ -23,22 +33,23 @@
         android:padding="5dp">
 
         <Button
-            android:id="@+id/btnSaveQuestions"
+            android:id="@+id/btnSaveQuestionsYN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:onClick="btnSaveQuestions"
+            android:onClick="btnSaveNewQuestions"
             android:padding="5dp"
-            android:text="Save" />
+            android:text="Lưu" />
 
         <Button
-            android:id="@+id/btnCancelQuestions"
+            android:id="@+id/btnCancelQuestionsYN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="5dp"
+            android:onClick="btnCancelNewSaveQuestion"
             android:padding="5dp"
-            android:text="Cancel" />
+            android:text="Huỷ bỏ" />
 
     </LinearLayout>
 

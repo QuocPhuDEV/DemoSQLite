@@ -7,7 +7,9 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +22,11 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
 
     // Tên bảng
     private static final String TABLE_NAME_CUSTOMER = "Customer";
+    private static final String TABLE_NAME_QUESTION_TYPE = "QuestionsType";
     private static final String TABLE_NAME_QUESTION = "Questions";
 
     // các cột
+    // BẢNG CUSTOMER
     private static final String CL_ID_CUSTOMER = "IDCustomer";
     private static final String CL_FULLNAME = "Fullname";
     private static final String CL_DATEOFBIRTH = "DateOfBirth";
@@ -31,6 +35,11 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
     private static final String CL_GENDER = "Gender";
     private static final String CL_PHONE = "Phone";
 
+    // BẢNG QUESTION TYPE
+    private static final String CL_ID_QUESTION_TYPE = "IDQuestionType";
+    private static final String CL_QUESTION_TYPE = "QuestionsType";
+
+    // BẢNG QUESTION
     private static final String CL_ID_QUESTION = "IDQuestion";
     private static final String CL_QUESTION = "Questions";
 
@@ -41,12 +50,14 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         createTableCustomer(sqLiteDatabase);
+        createTableQuestionType(sqLiteDatabase);
         createTableQuestion(sqLiteDatabase);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         dropTableAndCreateCustomer(sqLiteDatabase);
+        dropTableAndCreateQuestionType(sqLiteDatabase);
         dropTableAndCreateQuestion(sqLiteDatabase);
     }
 
@@ -66,6 +77,17 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(script);
     }
 
+    // TẠO BẢNG QUESTION TYPE
+    public void createTableQuestionType(SQLiteDatabase sqLiteDatabase) {
+        // script tạo bảng
+        String script = "CREATE TABLE " + TABLE_NAME_QUESTION_TYPE + "("
+                + CL_ID_QUESTION_TYPE + " INTEGER PRIMARY KEY, "
+                + CL_QUESTION_TYPE + " TEXT " + ")";
+
+        // chạy lệnh tạo bảng
+        sqLiteDatabase.execSQL(script);
+    }
+
     // TẠO BẢNG QUESTION
     public void createTableQuestion(SQLiteDatabase sqLiteDatabase) {
         // script tạo bảng
@@ -75,9 +97,10 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
 
         // chạy lệnh tạo bảng
         sqLiteDatabase.execSQL(script);
+
     }
 
-    // XÓA BẢNG NẾU TỒN TẠI, TẠO LẠI
+    // XÓA BẢNG CUSTOMER NẾU TỒN TẠI, TẠO LẠI
     public void dropTableAndCreateCustomer(SQLiteDatabase sqLiteDatabase) {
         //script xóa bảng
         String script = "DROP TABLE IF EXISTS " + TABLE_NAME_CUSTOMER;
@@ -89,7 +112,19 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    // XÓA BẢNG NẾU TỒN TẠI, TẠO LẠI
+    // XÓA BẢNG QUESTION TYPE NẾU TỒN TẠI, TẠO LẠI
+    public void dropTableAndCreateQuestionType(SQLiteDatabase sqLiteDatabase) {
+        //script xóa bảng
+        String script = "DROP TABLE IF EXISTS " + TABLE_NAME_QUESTION_TYPE;
+
+        // Xóa bảng
+        sqLiteDatabase.execSQL(script);
+
+        // tạo lại bảng
+        onCreate(sqLiteDatabase);
+    }
+
+    // XÓA BẢNG QUESTION NẾU TỒN TẠI, TẠO LẠI
     public void dropTableAndCreateQuestion(SQLiteDatabase sqLiteDatabase) {
         //script xóa bảng
         String script = "DROP TABLE IF EXISTS " + TABLE_NAME_QUESTION;
@@ -102,7 +137,7 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
     }
 
     // THÊM DỮ LIỆU VÀO BẢNG CUSTOMER
-    public void addCustomer(Customer customer) {
+    public void addCustomer(Customer customer, Context context) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CL_FULLNAME, customer.getFullName());
@@ -115,6 +150,9 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         // thêm 1 dòng dữ liệu vào bảng
         database.insert(TABLE_NAME_CUSTOMER, null, values);
 
+        // Thông báo
+        Toast.makeText(context, "Thêm khách hàng thành công", Toast.LENGTH_SHORT).show();
+
         // đóng kết nối
         database.close();
     }
@@ -122,13 +160,11 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
     // SEACH ALL DỮ LIỆU
     public List<Customer> getAllCustomer() {
         List<Customer> customerList = new ArrayList<Customer>();
-
         // script search all
         String script = "SELECT * FROM " + TABLE_NAME_CUSTOMER;
 
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(script, null);
-
         // Duyệt danh sách search được
         if (cursor.moveToFirst()) {
             do {
@@ -142,7 +178,6 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
                 customer.setPhoneNumber(cursor.getString(5));
                 customer.setAddress(cursor.getString(6));
 
-
                 // Thêm vào danh sách
                 customerList.add(customer);
 
@@ -150,6 +185,5 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         }
         return customerList;
     }
-
 
 }

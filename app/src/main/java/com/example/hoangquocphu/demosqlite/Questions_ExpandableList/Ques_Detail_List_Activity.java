@@ -2,13 +2,9 @@ package com.example.hoangquocphu.demosqlite.Questions_ExpandableList;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
-import com.example.hoangquocphu.demosqlite.Questions.Ques_DBHelper;
-import com.example.hoangquocphu.demosqlite.Questions.Questions;
 import com.example.hoangquocphu.demosqlite.R;
 
 import java.util.ArrayList;
@@ -37,13 +33,11 @@ public class Ques_Detail_List_Activity extends AppCompatActivity {
     //region Ánh xạ đối tượng
     public void addObejct() {
         expandableListView = (ExpandableListView) findViewById(R.id.expandListView);
-        expandableListDetail = Ques_Data.getData();
+        expandableListDetail = Ques_Data.getData(getApplicationContext());
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-        expandableListAdapter = new Custom_Adapter(this, expandableListTitle, expandableListDetail);
+        expandableListAdapter = new Ques_Adapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
 
-
-        
     }
     //endregion
 
