@@ -33,7 +33,8 @@
 
         <activity android:name=".QRCode.Scan_Result_Activity" />
         <activity android:name=".Questions_ExpandableList.Ques_Detail_List_Activity" />
-        <activity android:name=".Questions_ExpandableList.Ques_AddNew_Activity"></activity>
+        <activity android:name=".Questions_ExpandableList.Ques_AddNew_Activity" />
+        <activity android:name=".Answer.Answer_Activity"></activity>
     </application>
 
 </manifest>

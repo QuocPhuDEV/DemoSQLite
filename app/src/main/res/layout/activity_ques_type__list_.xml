@@ -13,7 +13,7 @@
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Select Question Type To Servey"
+        android:text="Danh Sách Câu Hỏi Khảo Sát"
         android:textColor="@android:color/holo_blue_light"
         android:textSize="20dp" />
 

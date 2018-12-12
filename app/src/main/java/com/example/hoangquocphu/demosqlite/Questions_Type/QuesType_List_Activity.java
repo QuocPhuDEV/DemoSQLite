@@ -14,6 +14,7 @@ import com.example.hoangquocphu.demosqlite.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class QuesType_List_Activity extends AppCompatActivity {
     //region Khai báo biến toàn cục
@@ -22,7 +23,10 @@ public class QuesType_List_Activity extends AppCompatActivity {
     private final List<QuestionsType> questionsTypeList = new ArrayList<QuestionsType>();
     private ArrayAdapter<QuestionsType> arrayAdapter;
 
-    private final String MODE_YESNO = "Câu hỏi đúng sai";
+    private final String MODE_YESNO = "(YN)";
+    private final String MODE_OP = "(OP)";
+    private final String MODE_IP = "(IP)";
+    private final String MODE_SE = "(SE)";
     //endregion
 
     @Override
@@ -53,6 +57,7 @@ public class QuesType_List_Activity extends AppCompatActivity {
     public void loadListView() {
         // Khởi tạo sqlite
         QuesType_DBHelper ques_Type_dbHelper = new QuesType_DBHelper(this);
+        ques_Type_dbHelper.createDefaulData();
 
         // Lấy danh sách các record có trong bảng
         List<QuestionsType> list = ques_Type_dbHelper.getAllQuestionsType();
@@ -75,7 +80,8 @@ public class QuesType_List_Activity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (MODE_YESNO.equals(questionsTypeList.get(i).toString())) {
+                String[] prefixList = questionsTypeList.get(i).toString().split(Pattern.quote("."));
+                if (prefixList[1].equals(MODE_YESNO)) {
                     Intent intent = new Intent(getApplicationContext(), Ques_Detail_List_Activity.class);
                     startActivity(intent);
                 }

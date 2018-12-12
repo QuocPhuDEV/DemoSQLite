@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.hoangquocphu.demosqlite.Questions_ExpandableList.Ques;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,28 +40,6 @@ public class QuesType_DBHelper extends SQLiteOpenHelper {
         //dropTableAndCreate(sqLiteDatabase);
     }
 
-//    // TẠO BẢNG
-//    public void createTable(SQLiteDatabase sqLiteDatabase) {
-//        // script tạo bảng
-//        String script = "CREATE TABLE " + TABLE_NAME + "("
-//                + CL_ID_QUESTION_TYPE + " INTEGER PRIMARY KEY, "
-//                + CL_QUESTION_TYPE + " TEXT " + ")";
-//
-//        // chạy lệnh tạo bảng
-//        sqLiteDatabase.execSQL(script);
-//    }
-//
-//    // XÓA BẢNG NẾU TỒN TẠI, TẠO LẠI
-//    public void dropTableAndCreate(SQLiteDatabase sqLiteDatabase) {
-//        //script xóa bảng
-//        String script = "DROP TABLE IF EXISTS " + TABLE_NAME;
-//
-//        // Xóa bảng
-//        sqLiteDatabase.execSQL(script);
-//
-//        // tạo lại bảng
-//        onCreate(sqLiteDatabase);
-//    }
 
     // THÊM DỮ LIỆU VÀO BẢNG CUSTOMER
     public void addQuestions(QuestionsType questionsType) {
@@ -73,6 +53,49 @@ public class QuesType_DBHelper extends SQLiteOpenHelper {
 
         // đóng kết nối
         database.close();
+    }
+
+    // THÊM DỮ LIỆU MẪU
+    public void createDefaulData() {
+        int count = this.getQuestionCount();
+        if (count == 0) {
+            QuestionsType questionsType1 = new QuestionsType("1.(YN). Bạn có biết về công ty ABC không? ");
+            QuestionsType questionsType2 = new QuestionsType("2.(YN). Bạn đã từng mua sản phẩm nào từ công ty ABC chưa? ");
+            QuestionsType questionsType3 = new QuestionsType("3.(OP). Bạn đã mua những sản phẩm gì? ");
+            QuestionsType questionsType4 = new QuestionsType("4.(SE). Bạn mua nó ở đâu? ");
+            QuestionsType questionsType5 = new QuestionsType("5.(IP). Bạn đã mua bao nhiêu lần? ");
+            QuestionsType questionsType6 = new QuestionsType("6.(IP). Bạn thấy chất lượng sản phẩm như thế nào? ");
+            QuestionsType questionsType7 = new QuestionsType("7.(YN). Bạn có ý định mua thêm sản phẩm? ");
+            QuestionsType questionsType8 = new QuestionsType("8.(YN). Bạn đã từng giới thiệu với ai về sản phẩm? ");
+            QuestionsType questionsType9 = new QuestionsType("9.(YN). Bạn sẽ tiếp tục ủng hộ sản phẩm của ABC ? ");
+            QuestionsType questionsType10 = new QuestionsType("10.(IP). Bạn có muốn góp ý gì khác không? ");
+
+            this.addQuestions(questionsType1);
+            this.addQuestions(questionsType2);
+            this.addQuestions(questionsType3);
+            this.addQuestions(questionsType4);
+            this.addQuestions(questionsType5);
+            this.addQuestions(questionsType6);
+            this.addQuestions(questionsType7);
+            this.addQuestions(questionsType8);
+            this.addQuestions(questionsType9);
+            this.addQuestions(questionsType10);
+        }
+
+    }
+
+    // KIỂM TRA TÌNH TRẠNG DỮ LIỆU
+    public int getQuestionCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+
+        cursor.close();
+
+        // return count
+        return count;
     }
 
     // SEACH ALL DỮ LIỆU

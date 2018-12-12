@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, Scan_Activity.class);
             startActivity(intent);
             return false;
-        }else if (id == R.id.itemNewQuestion){
+        } else if (id == R.id.itemNewQuestion) {
             Intent intent = new Intent(MainActivity.this, Ques_AddNew_Activity.class);
             startActivity(intent);
             return false;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //endregion
 
-    //region Xử lý menu popup
+    //region Xử lý Button Home
     public void btnCustomerServey(View view) {
         // Khai báo sử dụng popup menu
         PopupMenu popupMenu = new PopupMenu(MainActivity.this, btnCustomerServey);
@@ -109,6 +109,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         popupMenu.show();
+    }
+
+    public void btnScanQRCode(View view) {
+        Intent intent = new Intent(MainActivity.this, Scan_Activity.class);
+        startActivity(intent);
     }
     //endregion
 }
