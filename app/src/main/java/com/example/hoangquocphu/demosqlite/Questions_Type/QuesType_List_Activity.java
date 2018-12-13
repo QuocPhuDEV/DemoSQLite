@@ -1,6 +1,7 @@
 package com.example.hoangquocphu.demosqlite.Questions_Type;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.hoangquocphu.demosqlite.Answer.CheckBox_Answer_Activity;
+import com.example.hoangquocphu.demosqlite.Answer.Input_Answer_Activity;
+import com.example.hoangquocphu.demosqlite.Answer.Select_Answer_Activity;
+import com.example.hoangquocphu.demosqlite.Answer.YesNo_Answer_Activity;
 import com.example.hoangquocphu.demosqlite.Questions_ExpandableList.Ques_Detail_List_Activity;
 import com.example.hoangquocphu.demosqlite.R;
 
@@ -24,7 +29,7 @@ public class QuesType_List_Activity extends AppCompatActivity {
     private ArrayAdapter<QuestionsType> arrayAdapter;
 
     private final String MODE_YESNO = "(YN)";
-    private final String MODE_OP = "(OP)";
+    private final String MODE_CK = "(CK)";
     private final String MODE_IP = "(IP)";
     private final String MODE_SE = "(SE)";
     //endregion
@@ -82,9 +87,24 @@ public class QuesType_List_Activity extends AppCompatActivity {
 
                 String[] prefixList = questionsTypeList.get(i).toString().split(Pattern.quote("."));
                 if (prefixList[1].equals(MODE_YESNO)) {
-                    Intent intent = new Intent(getApplicationContext(), Ques_Detail_List_Activity.class);
+                    Intent intent = new Intent(getApplicationContext(), YesNo_Answer_Activity.class);
+                    intent.putExtra("question", questionsTypeList.get(i).toString());
+                    startActivity(intent);
+                } else if (prefixList[1].equals(MODE_CK)) {
+                    Intent intent = new Intent(getApplicationContext(), CheckBox_Answer_Activity.class);
+                    intent.putExtra("question", questionsTypeList.get(i).toString());
+                    startActivity(intent);
+                } else if (prefixList[1].equals(MODE_IP)) {
+                    Intent intent = new Intent(getApplicationContext(), Input_Answer_Activity.class);
+                    intent.putExtra("question", questionsTypeList.get(i).toString());
+                    startActivity(intent);
+                } else if (prefixList[1].equals(MODE_SE)) {
+                    Intent intent = new Intent(getApplicationContext(), Select_Answer_Activity.class);
+                    intent.putExtra("question", questionsTypeList.get(i).toString());
                     startActivity(intent);
                 }
+
+                view.setBackgroundColor(Color.CYAN);
             }
         });
     }

@@ -49,6 +49,7 @@ public class Cus_List_Activity extends AppCompatActivity {
     public void loadListView() {
         // Khởi tạo sqlite
         Cus_DBHelper cus_dbHelper = new Cus_DBHelper(this);
+        cus_dbHelper.createDefaultCustomer(getApplicationContext());
 
         // Lấy danh sách các record có trong bảng
         List<Customer> list = cus_dbHelper.getAllCustomer();

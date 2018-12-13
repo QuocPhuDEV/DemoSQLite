@@ -108,12 +108,12 @@ public class Cus_Activity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.rdoMale:
                 if (checked)
-                    Toast.makeText(this, "Male", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "Male", Toast.LENGTH_SHORT).show();
                 rdoFemale.setChecked(false);
                 break;
             case R.id.rdoFemale:
                 if (checked)
-                    Toast.makeText(this, "Female", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "Female", Toast.LENGTH_SHORT).show();
                 rdoMale.setChecked(false);
                 break;
         }

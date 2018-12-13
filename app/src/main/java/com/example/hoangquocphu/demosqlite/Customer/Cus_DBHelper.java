@@ -157,6 +157,52 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         database.close();
     }
 
+    // THÊM DỮ LIỆU MẶC ĐỊNH CHO CUSTOMER
+    public void createDefaultCustomer(Context context) {
+
+        int count = this.getCustomerCount();
+        if (count == 0) {
+            Customer customer = new Customer("Phan Văn Đức", null, "Male", null, null, "Nghệ An");
+            Customer customer1 = new Customer("Nguyễn Công Phượng", null, "Male", null, null, "Nghệ An");
+            Customer customer2 = new Customer("Nguyễn Quang Hải", null, "Male", null, null, "Hà Nội");
+            Customer customer3 = new Customer("Nguyễn Trọng Hoàng", null, "Male", null, null, "Nghệ An");
+            Customer customer4 = new Customer("Đỗ Hùng Dũng", null, "Male", null, null, "Hà Nội");
+            Customer customer5 = new Customer("Nguyễn Anh Đức", null, "Male", null, null, "Bình Dương");
+            Customer customer6 = new Customer("Nguyễn Đình Trọng", null, "Male", null, null, "Móng Cái");
+            Customer customer7 = new Customer("Đoàn Văn Hậu", null, "Male", null, null, "Cao Bằng");
+            Customer customer8 = new Customer("Quế Ngọc Hải (C)", null, "Male", null, null, "Nghệ An");
+            Customer customer9 = new Customer("Lương Xuân Trường", null, "Male", null, null, "Hải Dương");
+            Customer customer10 = new Customer("Bùi Tiến Dũng", null, "Male", null, null, "Thanh Hoá");
+
+            this.addCustomer(customer, context);
+            this.addCustomer(customer1, context);
+            this.addCustomer(customer2, context);
+            this.addCustomer(customer3, context);
+            this.addCustomer(customer4, context);
+            this.addCustomer(customer5, context);
+            this.addCustomer(customer6, context);
+            this.addCustomer(customer7, context);
+            this.addCustomer(customer8, context);
+            this.addCustomer(customer9, context);
+            this.addCustomer(customer10, context);
+        }
+
+    }
+
+    // KIỂM TRA TÌNH TRẠNG DỮ LIỆU
+    public int getCustomerCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_NAME_CUSTOMER;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+
+        cursor.close();
+
+        // return count
+        return count;
+    }
+
     // SEACH ALL DỮ LIỆU
     public List<Customer> getAllCustomer() {
         List<Customer> customerList = new ArrayList<Customer>();

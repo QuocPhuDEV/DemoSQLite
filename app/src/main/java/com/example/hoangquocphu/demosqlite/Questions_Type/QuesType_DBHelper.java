@@ -61,7 +61,7 @@ public class QuesType_DBHelper extends SQLiteOpenHelper {
         if (count == 0) {
             QuestionsType questionsType1 = new QuestionsType("1.(YN). Bạn có biết về công ty ABC không? ");
             QuestionsType questionsType2 = new QuestionsType("2.(YN). Bạn đã từng mua sản phẩm nào từ công ty ABC chưa? ");
-            QuestionsType questionsType3 = new QuestionsType("3.(OP). Bạn đã mua những sản phẩm gì? ");
+            QuestionsType questionsType3 = new QuestionsType("3.(CK). Bạn đã mua những sản phẩm gì? ");
             QuestionsType questionsType4 = new QuestionsType("4.(SE). Bạn mua nó ở đâu? ");
             QuestionsType questionsType5 = new QuestionsType("5.(IP). Bạn đã mua bao nhiêu lần? ");
             QuestionsType questionsType6 = new QuestionsType("6.(IP). Bạn thấy chất lượng sản phẩm như thế nào? ");

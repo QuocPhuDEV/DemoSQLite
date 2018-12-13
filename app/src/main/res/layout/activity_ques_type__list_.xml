@@ -22,4 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 
+    <Button
+        android:id="@+id/btnFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="20dp"
+        android:text="Finish"
+        android:textSize="20dp" />
+
 </LinearLayout>
