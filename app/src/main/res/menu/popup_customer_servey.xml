@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/itemNewCustomer"
-        android:title="New Customer" />
+        android:title="Khách Hàng Mới" />
     <item
         android:id="@+id/itemListCustomer"
-        android:title="From List Customer" />
+        android:title="Danh Sách Khách Hàng" />
 </menu>

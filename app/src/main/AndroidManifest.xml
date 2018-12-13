@@ -37,7 +37,8 @@
         <activity android:name=".Answer.YesNo_Answer_Activity" />
         <activity android:name=".Answer.CheckBox_Answer_Activity" />
         <activity android:name=".Answer.Input_Answer_Activity" />
-        <activity android:name=".Answer.Select_Answer_Activity"></activity>
+        <activity android:name=".Answer.Select_Answer_Activity" />
+        <activity android:name=".HistoryServey.History_Servey_Activity"></activity>
     </application>
 
 </manifest>
