@@ -109,12 +109,12 @@ public class Cus_Activity extends AppCompatActivity {
             case R.id.rdoMale:
                 if (checked)
                     //Toast.makeText(this, "Male", Toast.LENGTH_SHORT).show();
-                rdoFemale.setChecked(false);
+                    rdoFemale.setChecked(false);
                 break;
             case R.id.rdoFemale:
                 if (checked)
                     //Toast.makeText(this, "Female", Toast.LENGTH_SHORT).show();
-                rdoMale.setChecked(false);
+                    rdoMale.setChecked(false);
                 break;
         }
     }
@@ -154,7 +154,7 @@ public class Cus_Activity extends AppCompatActivity {
 
     //region Xử lý Button
 
-    // Sử kiện xử lý button Next
+    // Xử kiện xử lý button Next
     public void btnNext(View view) {
         SaveCustomerInformation();
 
@@ -162,6 +162,18 @@ public class Cus_Activity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // Xử lý sự kiện Cancel
+    public void btnCancelNewCustomer(View view) {
+        this.onBackPressed();
+    }
+
+    // Xử lý sự kiện Clear
+    public void btnClearNewCustomer(View view) {
+        edFullName.setText(null);
+        edMail.setText(null);
+        edPhone.setText(null);
+        DateOfBirth.setText("Select data of birth");
+    }
     //endregion
 
     //region Xử lý action
