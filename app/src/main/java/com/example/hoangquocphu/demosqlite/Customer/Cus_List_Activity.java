@@ -17,7 +17,7 @@ import java.util.List;
 public class Cus_List_Activity extends AppCompatActivity {
     //region Khai báo biến toàn cục
     private ListView listView;
-
+    private Cus_Adapter cus_adapter;
     private final List<Customer> customerList = new ArrayList<Customer>();
     private ArrayAdapter<Customer> arrayAdapter;
     //endregion
@@ -55,12 +55,21 @@ public class Cus_List_Activity extends AppCompatActivity {
         List<Customer> list = cus_dbHelper.getAllCustomer();
         this.customerList.addAll(list);
 
-        // tạo list adapter
-        this.arrayAdapter = new ArrayAdapter<Customer>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, this.customerList);
+//        // tạo list adapter
+//        this.arrayAdapter = new ArrayAdapter<Customer>(this,
+//                android.R.layout.simple_list_item_1, android.R.id.text1, this.customerList);
+//
+//        // đăng ký adapter cho listView
+//        this.listView.setAdapter(this.arrayAdapter);
+//
+//        // đăng ký context menu cho listview
+//        registerForContextMenu(this.listView);
 
-        // đăng ký adapter cho listView
-        this.listView.setAdapter(this.arrayAdapter);
+        // tạo list adapter
+        cus_adapter = new Cus_Adapter(getApplicationContext(), R.layout.item_customer, customerList);
+
+        // gán giá trị từ adapter cho listview
+        this.listView.setAdapter(cus_adapter);
 
         // đăng ký context menu cho listview
         registerForContextMenu(this.listView);

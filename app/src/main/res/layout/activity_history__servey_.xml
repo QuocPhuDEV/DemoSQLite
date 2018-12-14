@@ -32,39 +32,40 @@
         android:padding="5dp">
 
         <ListView
+            android:id="@+id/lvShowHistory"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <!--<TableLayout-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="fill_parent">-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent">-->
 
-                <!--<TableRow-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="fill_parent"-->
-                    <!--android:gravity="center">-->
+            <!--<TableRow-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:gravity="center">-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_column="1"-->
-                        <!--android:text="Khách Hàng" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_column="1"-->
+            <!--android:text="Khách Hàng" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_column="2"-->
-                        <!--android:layout_marginLeft="30dp"-->
-                        <!--android:text="Địa Chỉ" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_column="2"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:text="Địa Chỉ" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_column="3"-->
-                        <!--android:layout_marginLeft="30dp"-->
-                        <!--android:text="Thời gian khảo sát" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_column="3"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:text="Thời gian khảo sát" />-->
 
-                <!--</TableRow>-->
+            <!--</TableRow>-->
             <!--</TableLayout>-->
         </ListView>
 
