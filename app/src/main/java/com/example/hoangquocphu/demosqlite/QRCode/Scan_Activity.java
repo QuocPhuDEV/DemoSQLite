@@ -42,6 +42,7 @@ public class Scan_Activity extends AppCompatActivity {
 
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
+    private Scan_Adapter scan_adapter;
     //endregion
 
     @Override
@@ -126,15 +127,12 @@ public class Scan_Activity extends AppCompatActivity {
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
-                            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(10);
+//                            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+//                            vibrator.vibrate(10);
                             //textView.setText(sparseArray.valueAt(0).displayValue);
                             String scanResult = sparseArray.valueAt(0).displayValue;
                             //cameraSource.stop();
 
-                            // phát âm thanh
-                            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.scanone);
-                            mediaPlayer.start();
 
                             // Truyền biến sang màn hình kết quả
 //                            Intent intent = new Intent(getApplicationContext(), Scan_Result_Activity.class);
@@ -146,12 +144,23 @@ public class Scan_Activity extends AppCompatActivity {
                             boolean resultCheck = listItems.contains(scanResult);
 
                             if (resultCheck == true) {
-                                Toast.makeText(Scan_Activity.this, "QR Code đã scan!", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Scan_Activity.this, "QR Code đã scan!", Toast.LENGTH_SHORT).show();
                             } else {
                                 listItems.add(scanResult);
+
+                                // rung sau khi scan
+                                Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                                vibrator.vibrate(10);
+
+                                // phát âm thanh
+                                mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.scanone);
+                                mediaPlayer.start();
                             }
-                            adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_scan_result, listItems);
-                            listView.setAdapter(adapter);
+                            //adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_scan, listItems);
+                            //listView.setAdapter(adapter);
+
+                            scan_adapter = new Scan_Adapter(getApplicationContext(), R.layout.item_scan, listItems);
+                            listView.setAdapter(scan_adapter);
 
                         }
                     });

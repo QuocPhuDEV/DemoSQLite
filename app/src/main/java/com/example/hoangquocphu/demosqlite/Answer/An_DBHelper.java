@@ -99,7 +99,7 @@ public class An_DBHelper extends SQLiteOpenHelper {
     public void createDefaultHistory(Context context) {
         int count = this.getHistoryCount();
         if (count == 0) {
-            Answer answer = new Answer("mr.phu", "your name?", "phu", "11:12:00", 10);
+            Answer answer = new Answer("Có", "1.(YN). Bạn có biết về công ty ABC không? ", "Hoàng Quốc Phú", "11:12:00", 10);
             this.addAnswer(answer, context);
         }
 

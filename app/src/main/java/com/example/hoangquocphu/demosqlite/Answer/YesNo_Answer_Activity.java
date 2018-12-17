@@ -122,7 +122,6 @@ public class YesNo_Answer_Activity extends AppCompatActivity {
 
         //gọi hàm finish() để đóng Activity hiện tại và trở về Activity trước.
         finish();
-
     }
     //endregion
 }

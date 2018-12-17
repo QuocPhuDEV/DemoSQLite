@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.hoangquocphu.demosqlite.Answer.An_DBHelper;
 import com.example.hoangquocphu.demosqlite.Answer.Answer;
-import com.example.hoangquocphu.demosqlite.Customer.Cus_Adapter;
 import com.example.hoangquocphu.demosqlite.R;
 
 import java.util.List;

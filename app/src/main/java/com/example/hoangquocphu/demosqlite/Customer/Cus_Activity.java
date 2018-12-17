@@ -189,9 +189,9 @@ public class Cus_Activity extends AppCompatActivity {
         String address = this.spZone.getSelectedItem().toString();
         String gender = "";
         if (rdoMale.isChecked()) {
-            gender = "Male";
+            gender = "Nam";
         } else {
-            gender = "Female";
+            gender = "Nữ";
         }
 
         // Thêm giá trị vào class
@@ -199,7 +199,6 @@ public class Cus_Activity extends AppCompatActivity {
 
         // Thực hiện insert
         cus_dbHelper.addCustomer(customer, getApplicationContext());
-
 
 //        this.needRefresh = true;
 //        this.onBackPressed();

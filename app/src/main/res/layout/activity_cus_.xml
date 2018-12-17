@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Add new customer information"
+            android:text="Thêm mới khách hàng"
+            android:textColor="@color/blue"
             android:textSize="25dp" />
 
         <LinearLayout
@@ -30,7 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Full name (first and last)" />
+                android:text="Họ tên khách hàng:" />
 
             <EditText
                 android:id="@+id/edFullName"
@@ -52,14 +53,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date Of Birth" />
+                android:text="Ngày sinh" />
 
             <TextView
                 android:id="@+id/tvDatofbirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Select data of birth"
+                android:text="Chọn ngày sinh"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -73,7 +74,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender" />
+                android:text="Giới tính" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onRadioButtonClicked"
-                    android:text="Male" />
+                    android:text="Nam" />
 
                 <RadioButton
                     android:id="@+id/rdoFemale"
@@ -94,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:onClick="onRadioButtonClicked"
-                    android:text="Female" />
+                    android:text="Nữ" />
             </LinearLayout>
         </LinearLayout>
 
@@ -109,7 +110,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email Address" />
+                android:text="Email" />
 
             <EditText
                 android:id="@+id/edEmail"
@@ -130,7 +131,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone mumber" />
+                android:text="Số điện thoại" />
 
             <EditText
                 android:id="@+id/edPhone"
@@ -151,7 +152,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Address" />
+                android:text="Địa chỉ" />
 
             <Spinner
                 android:id="@+id/spZone"
@@ -176,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/radius_button"
                 android:onClick="btnCancelNewCustomer"
-                android:text="Cancel"
+                android:text="Huỷ"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
@@ -187,7 +188,7 @@
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/radius_button"
                 android:onClick="btnClearNewCustomer"
-                android:text="Clear"
+                android:text="Xoá"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
@@ -198,7 +199,7 @@
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/radius_button"
                 android:onClick="btnNext"
-                android:text="Next"
+                android:text="Tiếp tục"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
         </LinearLayout>
