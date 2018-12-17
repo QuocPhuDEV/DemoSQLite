@@ -43,7 +43,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Clear" />
+                android:background="@drawable/radius_button"
+                android:text="Clear"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <ListView

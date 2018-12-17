@@ -36,7 +36,9 @@
             android:layout_marginRight="20dp"
             android:onClick="btnFinishServey"
             android:text="Finish"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/radius_button"/>
     </LinearLayout>
 
 </ScrollView>

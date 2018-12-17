@@ -33,6 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="New Scan" />
+        android:text="New Scan"
+        android:textColor="@color/white"
+        android:background="@drawable/radius_button"/>
 
 </LinearLayout>

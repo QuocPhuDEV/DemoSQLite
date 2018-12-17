@@ -39,7 +39,9 @@
             android:layout_marginTop="5dp"
             android:onClick="btnSaveNewQuestions"
             android:padding="5dp"
-            android:text="Lưu" />
+            android:text="Lưu"
+            android:textColor="@color/white"
+            android:background="@drawable/radius_button"/>
 
         <Button
             android:id="@+id/btnCancelQuestionsYN"
@@ -49,7 +51,9 @@
             android:layout_marginTop="5dp"
             android:onClick="btnCancelNewSaveQuestion"
             android:padding="5dp"
-            android:text="Huỷ bỏ" />
+            android:text="Huỷ bỏ"
+            android:textColor="@color/white"
+            android:background="@drawable/radius_button"/>
 
     </LinearLayout>
 

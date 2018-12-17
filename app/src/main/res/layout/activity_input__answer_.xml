@@ -67,14 +67,18 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:onClick="btnBack"
-            android:text="Quay lại" />
+            android:text="Quay lại"
+            android:textColor="@color/white"
+            android:background="@drawable/radius_button"/>
 
         <Button
             android:id="@+id/btnDoneYN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="btnBack"
-            android:text="Tiếp tục" />
+            android:text="Tiếp tục"
+            android:textColor="@color/white"
+            android:background="@drawable/radius_button"/>
     </LinearLayout>
 
 </LinearLayout>
