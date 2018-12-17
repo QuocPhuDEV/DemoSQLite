@@ -53,6 +53,8 @@ public class QuesType_List_Activity extends AppCompatActivity {
     public String TIME = "";
     public int TOTAL_ANSWER = 0;
 
+    public boolean checkAnswer = false;
+
     //endregion
 
     @Override
@@ -75,6 +77,7 @@ public class QuesType_List_Activity extends AppCompatActivity {
                 QUESTION_NAME += data.getStringExtra(fQUESTION) + ";";
                 ANSWER += data.getStringExtra(fANSWER) + ";";
                 TIME += data.getStringExtra(fTIME) + ";";
+                checkAnswer = true;
             }
         }
     }
@@ -145,8 +148,8 @@ public class QuesType_List_Activity extends AppCompatActivity {
                     intent.putExtra("question", questionsTypeList.get(i).toString());
                     startActivity(intent);
                 }
-
-                view.setBackgroundColor(Color.CYAN);
+                changeColor(view);
+                //view.setBackgroundColor(Color.CYAN);
             }
         });
     }
@@ -191,6 +194,13 @@ public class QuesType_List_Activity extends AppCompatActivity {
 
             // Insert xuống database
             an_dbHelper.addAnswer(answer, getApplicationContext());
+        }
+    }
+
+    // Đổi màu item
+    public void changeColor(View view) {
+        if (checkAnswer == true) {
+            view.setBackgroundColor(Color.CYAN);
         }
     }
     //endregion
