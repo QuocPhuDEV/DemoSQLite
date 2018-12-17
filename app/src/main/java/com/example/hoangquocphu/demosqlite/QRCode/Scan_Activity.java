@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hoangquocphu.demosqlite.Answer.An_DBHelper;
 import com.example.hoangquocphu.demosqlite.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -25,24 +26,35 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Scan_Activity extends AppCompatActivity {
 
     //region Khai báo biến toàn cục
-    SurfaceView surfaceView;
-    CameraSource cameraSource;
-    TextView textView;
-    Button btnClearScan;
-    ListView listView;
-    BarcodeDetector barcodeDetector;
 
-    MediaPlayer mediaPlayer;
+    // Khai báo đối tượng scan
+    private SurfaceView surfaceView;
+    private CameraSource cameraSource;
+    private TextView textView;
+    private Button btnClearScan;
+    public ListView listView;
+    private BarcodeDetector barcodeDetector;
+    private MediaPlayer mediaPlayer;
 
 
-    ArrayList<String> listItems = new ArrayList<String>();
-    ArrayAdapter<String> adapter;
+    // Khai báo mảng chứa dữ liệu
+    private List<Scan> listItems = new ArrayList<Scan>();
     private Scan_Adapter scan_adapter;
+    private Scan scan;
+
+    // Khái báo biến chứa dữ liệu
+    private String MA_HANG = "";
+    private String SOID = "";
+    private String SCAN_TIME = "";
     //endregion
 
     @Override
@@ -52,6 +64,7 @@ public class Scan_Activity extends AppCompatActivity {
 
         addObject();
         addEvents();
+        loadListView();
     }
 
     //region Ánh xạ đối tượng
@@ -74,13 +87,6 @@ public class Scan_Activity extends AppCompatActivity {
     //region Thêm sự kiện xử lý
     public void addEvents() {
         ScanQRCode();
-        btnClearScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listView.setAdapter(null);
-                listItems.clear();
-            }
-        });
     }
     //endregion
 
@@ -117,7 +123,6 @@ public class Scan_Activity extends AppCompatActivity {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
-
             }
 
             @Override
@@ -127,12 +132,9 @@ public class Scan_Activity extends AppCompatActivity {
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
-//                            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-//                            vibrator.vibrate(10);
-                            //textView.setText(sparseArray.valueAt(0).displayValue);
+
                             String scanResult = sparseArray.valueAt(0).displayValue;
                             //cameraSource.stop();
-
 
                             // Truyền biến sang màn hình kết quả
 //                            Intent intent = new Intent(getApplicationContext(), Scan_Result_Activity.class);
@@ -141,12 +143,9 @@ public class Scan_Activity extends AppCompatActivity {
 
 
                             // Kiểm tra sự tồn tại của mã scan trong
-                            boolean resultCheck = listItems.contains(scanResult);
-
-                            if (resultCheck == true) {
+                            if (checkExist(scanResult) != 0) {
                                 //Toast.makeText(Scan_Activity.this, "QR Code đã scan!", Toast.LENGTH_SHORT).show();
                             } else {
-                                listItems.add(scanResult);
 
                                 // rung sau khi scan
                                 Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
@@ -155,18 +154,91 @@ public class Scan_Activity extends AppCompatActivity {
                                 // phát âm thanh
                                 mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.scanone);
                                 mediaPlayer.start();
-                            }
-                            //adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_scan, listItems);
-                            //listView.setAdapter(adapter);
 
-                            scan_adapter = new Scan_Adapter(getApplicationContext(), R.layout.item_scan, listItems);
-                            listView.setAdapter(scan_adapter);
+                                // Insert xuống database
+                                SaveDataScan(scanResult);
+
+                                // Load lại lưới
+                                loadListView();
+                            }
 
                         }
                     });
                 }
             }
         });
+
+    }
+
+    // Thêm dữ liệu đã scan vào database
+    public void SaveDataScan(String scanResult) {
+        // Khởi tạo SQLite
+        Scan_DBHelper scan_dbHelper = new Scan_DBHelper(this);
+
+        //Thêm giá trị vào class
+        DataScan(scanResult);
+        this.scan = new Scan(MA_HANG, SOID, SCAN_TIME);
+
+        // Thực hiện insert
+        scan_dbHelper.addScan(scan);
+
+
+    }
+
+    // Xử lý dữ liệu sau khi bấm scan
+    public void DataScan(String scanResult) {
+        List<String> list = new ArrayList<>(Arrays.asList(scanResult.split(";")));
+
+        // Lấy ngày tháng hiện tại
+        // Khai báo đối tượng today kiểu Date
+        Date today = new Date(System.currentTimeMillis());
+        // Khai báo định dạng
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
+        // Gán thời gian
+        String dateTimeNow = dateFormat.format(today.getTime());
+
+        MA_HANG = list.get(1).toString();
+        SOID = list.get(7).toString();
+        SCAN_TIME = dateTimeNow;
+    }
+
+    // Đổ dữ liệu lên lưới
+    public void loadListView() {
+        // Khởi tạo sqlite
+        Scan_DBHelper scan_dbHelper = new Scan_DBHelper(this);
+
+        // Lấy danh sách các record có trong bảng
+        List<Scan> scanList = scan_dbHelper.getAllScanData();
+        this.listItems.clear();
+        this.listItems.addAll(scanList);
+
+        // Tạo adapter
+        scan_adapter = new Scan_Adapter(getApplicationContext(), R.layout.item_scan, listItems);
+
+        // gán giá trị từ adapter cho listview
+        this.listView.setAdapter(scan_adapter);
+
+        // đăng ký context menu cho listview
+        // registerForContextMenu(this.listView);
+    }
+
+    // Kiểm tra tồn tại dữ liệu
+    public int checkExist(String scanResult) {
+        // Khởi tạo sqlite
+        Scan_DBHelper scan_dbHelper = new Scan_DBHelper(this);
+
+        DataScan(scanResult);
+        int count = 0;
+        count = scan_dbHelper.getCountScan(MA_HANG, SOID);
+
+        return count;
+    }
+
+    // Xóa hết dữ liệu
+    public void deleteAllData(View view) {
+        Scan_DBHelper scan_dbHelper = new Scan_DBHelper(this);
+        scan_dbHelper.deleteAllData();
+        loadListView();
     }
     //endregion
 }

@@ -46,7 +46,7 @@ public class An_DBHelper extends SQLiteOpenHelper {
 
     }
 
-    // THÊM DỮ LIỆU VÀO BẢNG CUSTOMER
+    // THÊM DỮ LIỆU VÀO BẢNG ANSWER
     public void addAnswer(Answer answer, Context context) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();

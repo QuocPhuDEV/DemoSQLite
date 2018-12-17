@@ -5,18 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.hoangquocphu.demosqlite.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Scan_Adapter extends BaseAdapter {
     private Context context;
     private int layout;
-    private List<String> scanResult;
+    private List<Scan> scanResult;
 
-    public Scan_Adapter(Context context, int layout, List<String> scanResult) {
+    public int stt = -1;
+
+    public Scan_Adapter(Context context, int layout, List<Scan> scanResult) {
         this.context = context;
         this.layout = layout;
         this.scanResult = scanResult;
@@ -44,7 +49,7 @@ public class Scan_Adapter extends BaseAdapter {
 
     // Xử lý View
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View view, ViewGroup viewGroup) {
         Scan_Adapter.viewHolder viewHolder = null;
 
         if (view == null) {
@@ -66,9 +71,11 @@ public class Scan_Adapter extends BaseAdapter {
         } else {
             viewHolder = (Scan_Adapter.viewHolder) view.getTag();
         }
-        viewHolder.tvSTT.setText("1");
-        viewHolder.tvMaHang.setText("Mã Hàng");
-        viewHolder.tvIDScan.setText("ID Scan");
+
+        // Gán giá trị
+        viewHolder.tvSTT.setText(String.valueOf(scanResult.get(position).getIdScan()));
+        viewHolder.tvMaHang.setText(scanResult.get(position).getMaHang());
+        viewHolder.tvIDScan.setText(scanResult.get(position).getSoID());
         return view;
     }
 }

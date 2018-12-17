@@ -26,6 +26,7 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME_QUESTION_TYPE = "QuestionsType";
     private static final String TABLE_NAME_QUESTION = "Questions";
     private static final String TABLE_NAME_ANSWER = "Answer";
+    private static final String TABLE_NAME_SCAN = "Scan";
 
     // các cột
     // BẢNG CUSTOMER
@@ -52,6 +53,12 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
     private static final String CL_ANSWER_CUSTOMER = "An_Customer";
     private static final String CL_ANSWER_TIME = "An_AnswerTime";
     private static final String CL_ANSWER_TOTAL = "An_TotalAnswer";
+
+    //BẢNG SCAN
+    private static final String CL_ID_SCAN = "IdScan";
+    private static final String CL_MAHANG = "MaHang";
+    private static final String CL_SOID = "SoID";
+    private static final String CL_SCAN_TIME = "ScanTime";
     //endregion
 
     public Cus_DBHelper(Context context) {
@@ -64,6 +71,7 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         createTableQuestionType(sqLiteDatabase);
         createTableQuestion(sqLiteDatabase);
         createTableAnswer(sqLiteDatabase);
+        createTableScan(sqLiteDatabase);
     }
 
     @Override
@@ -72,6 +80,7 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         dropTableAndCreateQuestionType(sqLiteDatabase);
         dropTableAndCreateQuestion(sqLiteDatabase);
         dropTableAndCreateAnswer(sqLiteDatabase);
+        dropTableAndCreateScan(sqLiteDatabase);
     }
 
     //region Tạo bảng trong database
@@ -128,6 +137,19 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         // chạy lệnh tạo bảng
         sqLiteDatabase.execSQL(script);
     }
+
+    // TẠO BẢNG SCAN
+    public void createTableScan(SQLiteDatabase sqLiteDatabase) {
+        // script tạo bảng
+        String script = "CREATE TABLE " + TABLE_NAME_SCAN + " ("
+                + CL_ID_SCAN + " INTEGER PRIMARY KEY, "
+                + CL_MAHANG + " TEXT, "
+                + CL_SOID + " TEXT, "
+                + CL_SCAN_TIME + " TEXT " + " )";
+
+        // chạy lệnh tạo bảng
+        sqLiteDatabase.execSQL(script);
+    }
     //endregion
 
     //region Xoá bảng trong database
@@ -171,6 +193,18 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
     public void dropTableAndCreateAnswer(SQLiteDatabase sqLiteDatabase) {
         //script xóa bảng
         String script = "DROP TABLE IF EXISTS " + TABLE_NAME_ANSWER;
+
+        // Xóa bảng
+        sqLiteDatabase.execSQL(script);
+
+        // tạo lại bảng
+        onCreate(sqLiteDatabase);
+    }
+
+    // XOÁ BẢNG SCAN NẾU TỒN TẠI, TẠO LẠI
+    public void dropTableAndCreateScan(SQLiteDatabase sqLiteDatabase) {
+        //script xóa bảng
+        String script = "DROP TABLE IF EXISTS " + TABLE_NAME_SCAN;
 
         // Xóa bảng
         sqLiteDatabase.execSQL(script);
