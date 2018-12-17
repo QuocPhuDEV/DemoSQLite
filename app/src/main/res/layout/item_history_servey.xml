@@ -38,11 +38,10 @@
 
     <ImageView
         android:id="@+id/imgStatus"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/ok"
         android:gravity="right"
         android:padding="5dp"
         android:scaleType="fitXY" />

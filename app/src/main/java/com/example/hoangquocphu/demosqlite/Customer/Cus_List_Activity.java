@@ -19,7 +19,6 @@ public class Cus_List_Activity extends AppCompatActivity {
     private ListView listView;
     private Cus_Adapter cus_adapter;
     private final List<Customer> customerList = new ArrayList<Customer>();
-    private ArrayAdapter<Customer> arrayAdapter;
     //endregion
 
     @Override
@@ -55,16 +54,6 @@ public class Cus_List_Activity extends AppCompatActivity {
         List<Customer> list = cus_dbHelper.getAllCustomer();
         this.customerList.addAll(list);
 
-//        // tạo list adapter
-//        this.arrayAdapter = new ArrayAdapter<Customer>(this,
-//                android.R.layout.simple_list_item_1, android.R.id.text1, this.customerList);
-//
-//        // đăng ký adapter cho listView
-//        this.listView.setAdapter(this.arrayAdapter);
-//
-//        // đăng ký context menu cho listview
-//        registerForContextMenu(this.listView);
-
         // tạo list adapter
         cus_adapter = new Cus_Adapter(getApplicationContext(), R.layout.item_customer, customerList);
 
@@ -81,6 +70,8 @@ public class Cus_List_Activity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), QuesType_List_Activity.class);
+                // Lấy giá trị current khi click vào item trên list;
+                intent.putExtra("CUS_NAME", customerList.get(i).toString());
                 startActivity(intent);
             }
         });

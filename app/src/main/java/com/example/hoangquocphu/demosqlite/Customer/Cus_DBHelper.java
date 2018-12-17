@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cus_DBHelper extends SQLiteOpenHelper {
+    //region Khai báo biến toàn cục
     // Phiên bản SQLite
     private static final int DATABASE_VERSION = 1;
 
@@ -24,6 +25,7 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME_CUSTOMER = "Customer";
     private static final String TABLE_NAME_QUESTION_TYPE = "QuestionsType";
     private static final String TABLE_NAME_QUESTION = "Questions";
+    private static final String TABLE_NAME_ANSWER = "Answer";
 
     // các cột
     // BẢNG CUSTOMER
@@ -43,6 +45,15 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
     private static final String CL_ID_QUESTION = "IDQuestion";
     private static final String CL_QUESTION = "Questions";
 
+    // BẢNG ANSWER
+    private static final String CL_ID_ANSWER = "IdAnswer";
+    private static final String CL_ANSWER = "An_Answer";
+    private static final String CL_ANSWER_QUESTION = "An_Question";
+    private static final String CL_ANSWER_CUSTOMER = "An_Customer";
+    private static final String CL_ANSWER_TIME = "An_AnswerTime";
+    private static final String CL_ANSWER_TOTAL = "An_TotalAnswer";
+    //endregion
+
     public Cus_DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -52,6 +63,7 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         createTableCustomer(sqLiteDatabase);
         createTableQuestionType(sqLiteDatabase);
         createTableQuestion(sqLiteDatabase);
+        createTableAnswer(sqLiteDatabase);
     }
 
     @Override
@@ -59,8 +71,10 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         dropTableAndCreateCustomer(sqLiteDatabase);
         dropTableAndCreateQuestionType(sqLiteDatabase);
         dropTableAndCreateQuestion(sqLiteDatabase);
+        dropTableAndCreateAnswer(sqLiteDatabase);
     }
 
+    //region Tạo bảng trong database
     // TẠO BẢNG CUSTOMER
     public void createTableCustomer(SQLiteDatabase sqLiteDatabase) {
         // script tạo bảng
@@ -100,6 +114,23 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
 
     }
 
+    // TẠO BẢNG ANSWER
+    public void createTableAnswer(SQLiteDatabase sqLiteDatabase) {
+        // script tạo bảng
+        String script = "CREATE TABLE " + TABLE_NAME_ANSWER + " ("
+                + CL_ID_ANSWER + " INTEGER PRIMARY KEY, "
+                + CL_ANSWER + " TEXT, "
+                + CL_ANSWER_QUESTION + " TEXT, "
+                + CL_ANSWER_CUSTOMER + " TEXT, "
+                + CL_ANSWER_TIME + " TEXT, "
+                + CL_ANSWER_TOTAL + " TEXT " + " )";
+
+        // chạy lệnh tạo bảng
+        sqLiteDatabase.execSQL(script);
+    }
+    //endregion
+
+    //region Xoá bảng trong database
     // XÓA BẢNG CUSTOMER NẾU TỒN TẠI, TẠO LẠI
     public void dropTableAndCreateCustomer(SQLiteDatabase sqLiteDatabase) {
         //script xóa bảng
@@ -136,6 +167,20 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    // XOÁ BẢNG ANSWER NẾU TỒN TẠI, TẠO LẠI
+    public void dropTableAndCreateAnswer(SQLiteDatabase sqLiteDatabase) {
+        //script xóa bảng
+        String script = "DROP TABLE IF EXISTS " + TABLE_NAME_ANSWER;
+
+        // Xóa bảng
+        sqLiteDatabase.execSQL(script);
+
+        // tạo lại bảng
+        onCreate(sqLiteDatabase);
+    }
+    //endregion
+
+    //region Thêm dữ liệu mặc định cho bảng
     // THÊM DỮ LIỆU VÀO BẢNG CUSTOMER
     public void addCustomer(Customer customer, Context context) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -188,7 +233,9 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         }
 
     }
+    //endregion
 
+    //region Search dữ liệu
     // KIỂM TRA TÌNH TRẠNG DỮ LIỆU
     public int getCustomerCount() {
         String countQuery = "SELECT  * FROM " + TABLE_NAME_CUSTOMER;
@@ -231,5 +278,6 @@ public class Cus_DBHelper extends SQLiteOpenHelper {
         }
         return customerList;
     }
+    //endregion
 
 }
