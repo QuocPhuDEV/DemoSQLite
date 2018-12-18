@@ -192,7 +192,7 @@ public class Location_Activity extends AppCompatActivity implements LocationList
             myLocation = locationManager
                     .getLastKnownLocation(locationProvider);
         }
-        // With Android API >= 23, need to catch SecurityException.
+        // Nếu API >=23, kiểm tra SecurityException
         catch (SecurityException e) {
             Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
@@ -201,22 +201,24 @@ public class Location_Activity extends AppCompatActivity implements LocationList
 
         if (myLocation != null) {
 
+            // Gán vị trí tìm được lên map
             LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+            // Thiết lập chế độ xem ( vừa di chuyển vừa zoom màn hình)
             myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(latLng)             // Sets the center of the map to location user
-                    .zoom(15)                   // Sets the zoom
-                    .bearing(90)                // Sets the orientation of the camera to east
-                    .tilt(40)                   // Sets the tilt of the camera to 30 degrees
-                    .build();                   // Creates a CameraPosition from the builder
+                    .target(latLng)             // Thiết lập trung tâm bản đồ theo vị trí người dùng hiện tại
+                    .zoom(15)                   // Thiết lập mức độ zoom
+                    .bearing(90)                // Đặt hướng camera về hướng đông
+                    .tilt(40)                   // Thiết lập độ nghiêng của camera ( đơn vị độ)
+                    .build();                   // Tạo mới camera từ những thiết lập trên
             myMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
 
-            // Add Marker to Map
+            // Tạo 1 vị trí trên Map ( vị trí của người dùng theo GPS)
             MarkerOptions option = new MarkerOptions();
             option.title("Vị trí của tôi");
-            option.snippet("....");
+            option.snippet("");
             option.position(latLng);
             Marker currentMarker = myMap.addMarker(option);
             currentMarker.showInfoWindow();
