@@ -75,7 +75,7 @@
             android:id="@+id/btnDoneYN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="btnBack"
+            android:onClick="btnContinute"
             android:text="Tiếp tục"
             android:textColor="@color/white"
             android:background="@drawable/radius_button"/>

@@ -45,6 +45,7 @@
             android:padding="5dp">
 
             <CheckBox
+                android:id="@+id/chk1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -52,6 +53,7 @@
                 android:textSize="17dp" />
 
             <CheckBox
+                android:id="@+id/chk2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -59,6 +61,7 @@
                 android:textSize="17dp" />
 
             <CheckBox
+                android:id="@+id/chk3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -66,6 +69,7 @@
                 android:textSize="17dp" />
 
             <CheckBox
+                android:id="@+id/chk4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -88,19 +92,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
+            android:background="@drawable/radius_button"
             android:onClick="btnBack"
             android:text="Quay lại"
-            android:textColor="@color/white"
-            android:background="@drawable/radius_button"/>
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnDoneYN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/radius_button"
+            android:onClick="btnContinute"
             android:text="Tiếp tục"
-            android:onClick="btnBack"
-            android:textColor="@color/white"
-            android:background="@drawable/radius_button"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

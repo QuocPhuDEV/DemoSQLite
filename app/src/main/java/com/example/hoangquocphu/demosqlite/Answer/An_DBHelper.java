@@ -71,10 +71,11 @@ public class An_DBHelper extends SQLiteOpenHelper {
         List<Answer> answerList = new ArrayList<Answer>();
 
         // script search all
-        String script = "SELECT * FROM " + TABLE_NAME;
+        String script = "SELECT *  FROM " + TABLE_NAME;
 
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(script, null);
+        //Cursor cursor = database.query(TABLE_NAME, new String[]{CL_ANSWER_CUSTOMER}, null, null, CL_ANSWER_CUSTOMER, null, null, null);
 
         // Duyệt danh sách search được
         if (cursor.moveToFirst()) {

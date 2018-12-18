@@ -19,4 +19,7 @@
     <item
         android:id="@+id/itemQuestionTypeList"
         android:title="Question Type List" />
+    <item
+        android:id="@+id/itemGPS"
+        android:title="Location" />
 </menu>

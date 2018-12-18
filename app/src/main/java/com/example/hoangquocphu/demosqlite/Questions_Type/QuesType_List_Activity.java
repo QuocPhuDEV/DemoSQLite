@@ -33,6 +33,7 @@ public class QuesType_List_Activity extends AppCompatActivity {
     public static final String fQUESTION = "QUESTION";
     public static final String fANSWER = "ANSWER";
     public static final String fTIME = "TIME";
+    public static final String fPOSITION = "POSITION";
 
     private ListView listView;
     private Answer answer;
@@ -53,7 +54,6 @@ public class QuesType_List_Activity extends AppCompatActivity {
     public String TIME = "";
     public int TOTAL_ANSWER = 0;
 
-    public boolean checkAnswer = false;
 
     //endregion
 
@@ -77,7 +77,8 @@ public class QuesType_List_Activity extends AppCompatActivity {
                 QUESTION_NAME += data.getStringExtra(fQUESTION) + ";";
                 ANSWER += data.getStringExtra(fANSWER) + ";";
                 TIME += data.getStringExtra(fTIME) + ";";
-                checkAnswer = true;
+
+                listView.getChildAt(data.getIntExtra(fPOSITION, 0)).setBackgroundColor(Color.CYAN);
             }
         }
     }
@@ -134,22 +135,24 @@ public class QuesType_List_Activity extends AppCompatActivity {
                 if (prefixList[1].equals(MODE_YESNO)) {
                     Intent intent = new Intent(getApplicationContext(), YesNo_Answer_Activity.class);
                     intent.putExtra("question", questionsTypeList.get(i).toString());
+                    intent.putExtra("position", i);
                     startActivityForResult(intent, REQUEST_CODE_EXAMPLE);
                 } else if (prefixList[1].equals(MODE_CK)) {
                     Intent intent = new Intent(getApplicationContext(), CheckBox_Answer_Activity.class);
                     intent.putExtra("question", questionsTypeList.get(i).toString());
-                    startActivity(intent);
+                    intent.putExtra("position", i);
+                    startActivityForResult(intent, REQUEST_CODE_EXAMPLE);
                 } else if (prefixList[1].equals(MODE_IP)) {
                     Intent intent = new Intent(getApplicationContext(), Input_Answer_Activity.class);
                     intent.putExtra("question", questionsTypeList.get(i).toString());
-                    startActivity(intent);
+                    intent.putExtra("position", i);
+                    startActivityForResult(intent, REQUEST_CODE_EXAMPLE);
                 } else if (prefixList[1].equals(MODE_SE)) {
                     Intent intent = new Intent(getApplicationContext(), Select_Answer_Activity.class);
                     intent.putExtra("question", questionsTypeList.get(i).toString());
-                    startActivity(intent);
+                    intent.putExtra("position", i);
+                    startActivityForResult(intent, REQUEST_CODE_EXAMPLE);
                 }
-                changeColor(view);
-                //view.setBackgroundColor(Color.CYAN);
             }
         });
     }
@@ -194,13 +197,6 @@ public class QuesType_List_Activity extends AppCompatActivity {
 
             // Insert xuống database
             an_dbHelper.addAnswer(answer, getApplicationContext());
-        }
-    }
-
-    // Đổi màu item
-    public void changeColor(View view) {
-        if (checkAnswer == true) {
-            view.setBackgroundColor(Color.CYAN);
         }
     }
     //endregion

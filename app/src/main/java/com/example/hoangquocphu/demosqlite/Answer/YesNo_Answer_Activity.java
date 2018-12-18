@@ -21,10 +21,15 @@ public class YesNo_Answer_Activity extends AppCompatActivity {
     private String Question = "";
     private String Answer = "";
 
-    // Biến constant được dùng để định danh dữ liệu được truyền giữa các Activity
+    // Vị trí của item câu hỏi đã chọn
+    private int position = 0;
+
+    // khai báo biến constant để định danh dữ liệu được truyền giữa các Activity
     public static final String QUESTION = "QUESTION";
     public static final String ANSWER = "ANSWER";
     public static final String TIME = "TIME";
+
+    public static final String POSITION = "POSITION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +60,10 @@ public class YesNo_Answer_Activity extends AppCompatActivity {
     // Load form
     public void loadForm() {
         Intent intent = this.getIntent();
-        String _questioon = intent.getStringExtra("question");
-        textView.setText(_questioon);
-        Question = _questioon;
+        String _question = intent.getStringExtra("question");
+        position = intent.getIntExtra("position", 0);
+        textView.setText(_question);
+        Question = _question;
     }
 
     // Xử lý Radio Button
@@ -115,6 +121,7 @@ public class YesNo_Answer_Activity extends AppCompatActivity {
         intent.putExtra(QUESTION, Question);
         intent.putExtra(ANSWER, Answer);
         intent.putExtra(TIME, dateTimeNow);
+        intent.putExtra(POSITION, position);
 
         // Đặt resultCode là Activity.RESULT_OK to
         // thể hiện đã thành công và có chứa kết quả trả về
