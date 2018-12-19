@@ -30,6 +30,7 @@ import com.example.hoangquocphu.demosqlite.Questions_ExpandableList.Ques_Detail_
 import com.example.hoangquocphu.demosqlite.R;
 import com.google.android.gms.maps.LocationSource;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -188,68 +189,81 @@ public class QuesType_List_Activity extends AppCompatActivity {
 
     // Thêm dữ liệu trả lời vào database
     public void SaveData() {
-        // Gán dữ liệu từ các chuỗi vào mảng.
-        List<String> questionList = new ArrayList<>(Arrays.asList(QUESTION_NAME.split(";")));
-        List<String> answerList = new ArrayList<>(Arrays.asList(ANSWER.split(";")));
-        List<String> timeList = new ArrayList<>(Arrays.asList(TIME.split(";")));
+        try {
+            // Gán dữ liệu từ các chuỗi vào mảng.
+            List<String> questionList = new ArrayList<>(Arrays.asList(QUESTION_NAME.split(";")));
+            List<String> answerList = new ArrayList<>(Arrays.asList(ANSWER.split(";")));
+            List<String> timeList = new ArrayList<>(Arrays.asList(TIME.split(";")));
 
-        // Đếm số câu hỏi đã trả lời
-        TOTAL_ANSWER = countQuestion(ANSWER);
+            // Đếm số câu hỏi đã trả lời
+            TOTAL_ANSWER = countQuestion(ANSWER);
 
-        // Khởi tạo SQLite
-        An_DBHelper an_dbHelper = new An_DBHelper(this);
+            // Khởi tạo SQLite
+            An_DBHelper an_dbHelper = new An_DBHelper(this);
 
-        // Thêm giá trị vào class
-        for (int i = 0; i < countQuestion(QUESTION_NAME); i++) {
-            this.answer = new Answer(
-                    answerList.get(i).toString()
-                    , questionList.get(i).toString()
-                    , CUS_NAME
-                    , timeList.get(i).toString(),
-                    TOTAL_ANSWER);
+            // Thêm giá trị vào class
+            for (int i = 0; i < countQuestion(QUESTION_NAME); i++) {
+                this.answer = new Answer(
+                        answerList.get(i).toString()
+                        , questionList.get(i).toString()
+                        , CUS_NAME
+                        , timeList.get(i).toString(),
+                        TOTAL_ANSWER);
 
-            // Insert xuống database
-            an_dbHelper.addAnswer(answer, getApplicationContext());
+                // Insert xuống database
+                an_dbHelper.addAnswer(answer, getApplicationContext());
+            }
+        } catch (Exception e) {
+
         }
     }
 
     // Lấy vị trí GPS
     public void GPS() {
 
-        // Khai báo đối tượng locationManager
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        try {
+            // Khai báo đối tượng locationManager
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        // Kiểm tra quyền truy cập
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            // Kiểm tra quyền truy cập
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            // Gán giá trị location
+            locationManager.requestLocationUpdates(
+                    locationManager.GPS_PROVIDER,
+                    MINIMUM_TIME_BETWEEN_UPDATES,
+                    MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                    new MyLocationListener()
+            );
+        } catch (Exception e) {
+
         }
-        // Gán giá trị location
-        locationManager.requestLocationUpdates(
-                locationManager.GPS_PROVIDER,
-                MINIMUM_TIME_BETWEEN_UPDATES,
-                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                new MyLocationListener()
-        );
+
     }
 
     public void getGPS() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location != null) {
+        try {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null) {
 //            Toast.makeText(this, "Kinh độ: " + location.getLongitude()
 //                    + "\n" + "Vĩ độ: " + location.getLatitude(), Toast.LENGTH_LONG).show();
-        }
+            }
 
-        Intent intent = new Intent(getApplicationContext(), Location_Activity.class);
-        intent.putExtra("Longitude", location.getLongitude());
-        intent.putExtra("Latitude", location.getLatitude());
+            Intent intent = new Intent(getApplicationContext(), Location_Activity.class);
+            intent.putExtra("Longitude", location.getLongitude());
+            intent.putExtra("Latitude", location.getLatitude());
 
 //        intent.putExtra("Longitude", 106.6893233);
 //        intent.putExtra("Latitude", 10.766466);
-        startActivity(intent);
+            startActivity(intent);
 
+        } catch (Exception e) {
+
+        }
     }
 
     private class MyLocationListener implements LocationListener {

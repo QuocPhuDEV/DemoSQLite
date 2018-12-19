@@ -88,63 +88,75 @@ public class Location_Activity extends AppCompatActivity implements LocationList
 
     // Form load
     public void formLoad() {
-        Intent intent = this.getIntent();
-        Longitude = intent.getDoubleExtra("Longitude", 0);
-        Latitude = intent.getDoubleExtra("Latitude", 0);
+        try {
+            Intent intent = this.getIntent();
+            Longitude = intent.getDoubleExtra("Longitude", 0);
+            Latitude = intent.getDoubleExtra("Latitude", 0);
+        } catch (Exception e) {
+
+        }
     }
 
     private void onMyMapReady(GoogleMap googleMap) {
-        // Gán google maps cho fragment
-        myMap = googleMap;
-        // Sự kiện click lấy vị trí
-        myMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+        try {
+            // Gán google maps cho fragment
+            myMap = googleMap;
+            // Sự kiện click lấy vị trí
+            myMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
 
-            @Override
-            public void onMapLoaded() {
-                // Map loaded. Load xong thì đóng progress bar
-                myProgress.dismiss();
+                @Override
+                public void onMapLoaded() {
+                    // Map loaded. Load xong thì đóng progress bar
+                    myProgress.dismiss();
 
-                // Hỏi quyền truy cập từ người dùng
-                askPermissionsAndShowMyLocation();
+                    // Hỏi quyền truy cập từ người dùng
+                    askPermissionsAndShowMyLocation();
+                }
+            });
+
+            // Set kiểu hiển thị của Map
+            myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+            // Set kiểu Zoom map
+            myMap.getUiSettings().setZoomControlsEnabled(true);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
             }
-        });
+            myMap.setMyLocationEnabled(true);
+        } catch (Exception e) {
 
-        // Set kiểu hiển thị của Map
-        myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
-        // Set kiểu Zoom map
-        myMap.getUiSettings().setZoomControlsEnabled(true);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
         }
-        myMap.setMyLocationEnabled(true);
     }
 
     private void askPermissionsAndShowMyLocation() {
 
-        // Nếu API> = 23, hiển thị thông báo hỏi người dùng về quyền truy cập
-        if (Build.VERSION.SDK_INT >= 23) {
-            int accessCoarsePermission
-                    = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-            int accessFinePermission
-                    = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        try {
+            // Nếu API> = 23, hiển thị thông báo hỏi người dùng về quyền truy cập
+            if (Build.VERSION.SDK_INT >= 23) {
+                int accessCoarsePermission
+                        = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+                int accessFinePermission
+                        = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
 
 
-            if (accessCoarsePermission != PackageManager.PERMISSION_GRANTED
-                    || accessFinePermission != PackageManager.PERMISSION_GRANTED) {
-                // Hỏi quyền từ người dùng
-                String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION};
-                // Hiển thị dialog xác nhận
-                ActivityCompat.requestPermissions(this, permissions,
-                        REQUEST_ID_ACCESS_COURSE_FINE_LOCATION);
+                if (accessCoarsePermission != PackageManager.PERMISSION_GRANTED
+                        || accessFinePermission != PackageManager.PERMISSION_GRANTED) {
+                    // Hỏi quyền từ người dùng
+                    String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION};
+                    // Hiển thị dialog xác nhận
+                    ActivityCompat.requestPermissions(this, permissions,
+                            REQUEST_ID_ACCESS_COURSE_FINE_LOCATION);
 
-                return;
+                    return;
+                }
             }
-        }
 
-        // Hiển thị vị trí hiện tại lên Map
-        this.showMyLocation();
+            // Hiển thị vị trí hiện tại lên Map
+            this.showMyLocation();
+        } catch (Exception e) {
+
+        }
     }
 
     // Sau khi xác nhận quyền truy cập từ người dùng
@@ -154,122 +166,135 @@ public class Location_Activity extends AppCompatActivity implements LocationList
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //
-        switch (requestCode) {
-            case REQUEST_ID_ACCESS_COURSE_FINE_LOCATION: {
+        try {
+            switch (requestCode) {
+                case REQUEST_ID_ACCESS_COURSE_FINE_LOCATION: {
 
-                // Gán quyền khi người dùng xác nhận
-                if (grantResults.length > 1
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    // Gán quyền khi người dùng xác nhận
+                    if (grantResults.length > 1
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                            && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(this, "Đã gán quyền truy cập vị trí", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Đã gán quyền truy cập vị trí", Toast.LENGTH_LONG).show();
 
-                    // Hiển thị vị trí lên Map
-                    this.showMyLocation();
+                        // Hiển thị vị trí lên Map
+                        this.showMyLocation();
+                    }
+                    // Thông báo khi không được cấp quyền vị trí
+                    else {
+                        Toast.makeText(this, "Chưa cấp quyền truy cập vị trí", Toast.LENGTH_LONG).show();
+                    }
+                    break;
                 }
-                // Thông báo khi không được cấp quyền vị trí
-                else {
-                    Toast.makeText(this, "Chưa cấp quyền truy cập vị trí", Toast.LENGTH_LONG).show();
-                }
-                break;
             }
+        } catch (Exception e) {
+
         }
     }
 
     // Tìm vị trí cụ thể
     private String getEnabledLocationProvider() {
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        // Khai báo đối tượng
-        Criteria criteria = new Criteria();
+        try {
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setCostAllowed(false);
+            // Khai báo đối tượng
+            Criteria criteria = new Criteria();
 
-        // Gán vị trí khả dụng
-        String bestProvider = locationManager.getBestProvider(criteria, true);
+            criteria.setAccuracy(Criteria.ACCURACY_FINE);
+            criteria.setCostAllowed(false);
 
-        boolean enabled = locationManager.isProviderEnabled(bestProvider);
-        //boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            // Gán vị trí khả dụng
+            String bestProvider = locationManager.getBestProvider(criteria, true);
 
-        if (!enabled) {
-            Toast.makeText(this, "Không có vị trí khả dụng", Toast.LENGTH_LONG).show();
+            boolean enabled = locationManager.isProviderEnabled(bestProvider);
+            //boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            if (!enabled) {
+                Toast.makeText(this, "Không có vị trí khả dụng", Toast.LENGTH_LONG).show();
+                return null;
+            }
+            return bestProvider;
+        } catch (Exception e) {
             return null;
         }
-        return bestProvider;
     }
 
     // Khi được cấp quyền truy cập vị trí, lấy vị trí hiện tại
     private void showMyLocation() {
 
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        String locationProvider = this.getEnabledLocationProvider();
-
-        if (locationProvider == null) {
-            return;
-        }
-
-        // Millisecond
-        final long MIN_TIME_BW_UPDATES = 1000;
-        // Met
-        final float MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-
-        Location myLocation = null;
         try {
-            // Thiết lập thông tin cho location manager
-            locationManager.requestLocationUpdates(
-                    locationProvider,
-                    MIN_TIME_BW_UPDATES,
-                    MIN_DISTANCE_CHANGE_FOR_UPDATES, (LocationListener) this);
-            // Lấy ra vị trí.
-            myLocation = locationManager
-                    .getLastKnownLocation(locationProvider);
-        }
-        // Nếu API >=23, kiểm tra SecurityException
-        catch (SecurityException e) {
-            Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-            return;
-        }
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        if (myLocation != null) {
+            String locationProvider = this.getEnabledLocationProvider();
 
-            // Gán vị trí tìm được lên map
-            //LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-            LatLng latLng = null;
-            if (Longitude != 0 || Latitude != 0) {
-                latLng = new LatLng(Latitude, Longitude);
-                tvGPS.setText("Kinh độ: " + Latitude + "           Vĩ độ: " + Longitude);
-                getAddress(Latitude, Longitude);
-            } else {
-                latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-                tvGPS.setText("Kinh độ: " + myLocation.getLongitude() + "           Vĩ độ: " + myLocation.getLatitude());
-                getAddress(myLocation.getLatitude(), myLocation.getLongitude());
+            if (locationProvider == null) {
+                return;
             }
 
+            // Millisecond
+            final long MIN_TIME_BW_UPDATES = 1000;
+            // Met
+            final float MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
 
-            // Thiết lập chế độ xem ( vừa di chuyển vừa zoom màn hình)
-            myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+            Location myLocation = null;
+            try {
+                // Thiết lập thông tin cho location manager
+                locationManager.requestLocationUpdates(
+                        locationProvider,
+                        MIN_TIME_BW_UPDATES,
+                        MIN_DISTANCE_CHANGE_FOR_UPDATES, (LocationListener) this);
+                // Lấy ra vị trí.
+                myLocation = locationManager
+                        .getLastKnownLocation(locationProvider);
+            }
+            // Nếu API >=23, kiểm tra SecurityException
+            catch (SecurityException e) {
+                Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+                return;
+            }
 
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(latLng)             // Thiết lập trung tâm bản đồ theo vị trí người dùng hiện tại
-                    .zoom(15)                   // Thiết lập mức độ zoom
-                    .bearing(90)                // Đặt hướng camera về hướng đông
-                    .tilt(40)                   // Thiết lập độ nghiêng của camera ( đơn vị độ)
-                    .build();                   // Tạo mới camera từ những thiết lập trên
-            myMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            if (myLocation != null) {
+
+                // Gán vị trí tìm được lên map
+                //LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+                LatLng latLng = null;
+                if (Longitude != 0 || Latitude != 0) {
+                    latLng = new LatLng(Latitude, Longitude);
+                    tvGPS.setText("Kinh độ: " + Latitude + "           Vĩ độ: " + Longitude);
+                    getAddress(Latitude, Longitude);
+                } else {
+                    latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+                    tvGPS.setText("Kinh độ: " + myLocation.getLongitude() + "           Vĩ độ: " + myLocation.getLatitude());
+                    getAddress(myLocation.getLatitude(), myLocation.getLongitude());
+                }
 
 
-            // Tạo 1 vị trí trên Map ( vị trí của người dùng theo GPS)
-            MarkerOptions option = new MarkerOptions();
-            option.title("Vị trí của tôi");
-            option.snippet("");
-            option.position(latLng);
-            Marker currentMarker = myMap.addMarker(option);
-            currentMarker.showInfoWindow();
-        } else {
-            //Toast.makeText(this, "Không thể tim thấy vị trí", Toast.LENGTH_LONG).show();
+                // Thiết lập chế độ xem ( vừa di chuyển vừa zoom màn hình)
+                myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(latLng)             // Thiết lập trung tâm bản đồ theo vị trí người dùng hiện tại
+                        .zoom(15)                   // Thiết lập mức độ zoom
+                        .bearing(90)                // Đặt hướng camera về hướng đông
+                        .tilt(40)                   // Thiết lập độ nghiêng của camera ( đơn vị độ)
+                        .build();                   // Tạo mới camera từ những thiết lập trên
+                myMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+                // Tạo 1 vị trí trên Map ( vị trí của người dùng theo GPS)
+                MarkerOptions option = new MarkerOptions();
+                option.title("Vị trí của tôi");
+                option.snippet("");
+                option.position(latLng);
+                Marker currentMarker = myMap.addMarker(option);
+                currentMarker.showInfoWindow();
+            } else {
+                //Toast.makeText(this, "Không thể tim thấy vị trí", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Xác thực vị trí không thành công, vui lòng thử lại", Toast.LENGTH_SHORT).show();
         }
 
     }
