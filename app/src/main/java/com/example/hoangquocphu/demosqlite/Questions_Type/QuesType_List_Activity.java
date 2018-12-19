@@ -176,9 +176,7 @@ public class QuesType_List_Activity extends AppCompatActivity {
 //                + "Câu hỏi: " + QUESTION_NAME
 //                + "Trả lời: " + ANSWER
 //                + "Thời gian: " + TIME, Toast.LENGTH_SHORT).show();
-//        SaveData();
-//        this.onBackPressed();
-
+        SaveData();
         getGPS();
     }
 
@@ -248,7 +246,6 @@ public class QuesType_List_Activity extends AppCompatActivity {
         intent.putExtra("Longitude", location.getLongitude());
         intent.putExtra("Latitude", location.getLatitude());
 
-        //10.766466,106.6893233
 //        intent.putExtra("Longitude", 106.6893233);
 //        intent.putExtra("Latitude", 10.766466);
         startActivity(intent);
