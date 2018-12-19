@@ -256,9 +256,9 @@ public class QuesType_List_Activity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), Location_Activity.class);
             intent.putExtra("Longitude", location.getLongitude());
             intent.putExtra("Latitude", location.getLatitude());
-
-//        intent.putExtra("Longitude", 106.6893233);
-//        intent.putExtra("Latitude", 10.766466);
+//        //9.188968, 105.140819
+//        intent.putExtra("Longitude", 105.140819);
+//        intent.putExtra("Latitude", 9.188968);
             startActivity(intent);
 
         } catch (Exception e) {
