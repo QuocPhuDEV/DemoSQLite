@@ -25,7 +25,7 @@
         <ListView
             android:id="@+id/lvQuestion"
             android:layout_width="match_parent"
-            android:layout_height="500dp"></ListView>
+            android:layout_height="480dp"></ListView>
 
         <Button
             android:id="@+id/btnFinish"
@@ -34,11 +34,12 @@
             android:layout_gravity="right"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/radius_button"
             android:onClick="btnFinishServey"
-            android:text="Finish"
-            android:textSize="20dp"
+            android:text="Lưu kết quả"
             android:textColor="@color/white"
-            android:background="@drawable/radius_button"/>
+            android:textSize="16dp" />
     </LinearLayout>
 
 </ScrollView>

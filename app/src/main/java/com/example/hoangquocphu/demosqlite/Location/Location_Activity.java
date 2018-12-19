@@ -2,8 +2,11 @@ package com.example.hoangquocphu.demosqlite.Location;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,8 +16,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hoangquocphu.demosqlite.MainActivity;
 import com.example.hoangquocphu.demosqlite.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,16 +31,32 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class Location_Activity extends AppCompatActivity implements LocationListener {
+
+    // Khai báo đối tượng Map
     protected GoogleMap myMap;
     private ProgressDialog myProgress;
 
+    // Khai báo các control
+    private TextView tvLocation, tvGPS;
+
     public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
+
+    // Khai báo biến nhận giá trị kinh và vĩ độ
+    public double Longitude = 0;
+    public double Latitude = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_);
+
+        addObject();
+        formLoad();
 
         // Tạo Progress Bar.
         myProgress = new ProgressDialog(this);
@@ -56,6 +78,19 @@ public class Location_Activity extends AppCompatActivity implements LocationList
             }
         });
 
+    }
+
+    // Ánh xạ đối tượng
+    public void addObject() {
+        tvLocation = (TextView) findViewById(R.id.tvLocation);
+        tvGPS = (TextView) findViewById(R.id.tvGPS);
+    }
+
+    // Form load
+    public void formLoad() {
+        Intent intent = this.getIntent();
+        Longitude = intent.getDoubleExtra("Longitude", 0);
+        Latitude = intent.getDoubleExtra("Latitude", 0);
     }
 
     private void onMyMapReady(GoogleMap googleMap) {
@@ -182,12 +217,11 @@ public class Location_Activity extends AppCompatActivity implements LocationList
 
         Location myLocation = null;
         try {
-            // This code need permissions (Asked above ***)
+            // Thiết lập thông tin cho location manager
             locationManager.requestLocationUpdates(
                     locationProvider,
                     MIN_TIME_BW_UPDATES,
                     MIN_DISTANCE_CHANGE_FOR_UPDATES, (LocationListener) this);
-            // Getting Location.
             // Lấy ra vị trí.
             myLocation = locationManager
                     .getLastKnownLocation(locationProvider);
@@ -202,7 +236,19 @@ public class Location_Activity extends AppCompatActivity implements LocationList
         if (myLocation != null) {
 
             // Gán vị trí tìm được lên map
-            LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+            //LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+            LatLng latLng = null;
+            if (Longitude != 0 || Latitude != 0) {
+                latLng = new LatLng(Latitude, Longitude);
+                tvGPS.setText("Kinh độ: " + Latitude + "           Vĩ độ: " + Longitude);
+                getAddress(Latitude, Longitude);
+            } else {
+                latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+                tvGPS.setText("Kinh độ: " + myLocation.getLongitude() + "           Vĩ độ: " + myLocation.getLatitude());
+                getAddress(myLocation.getLatitude(), myLocation.getLongitude());
+            }
+
+
             // Thiết lập chế độ xem ( vừa di chuyển vừa zoom màn hình)
             myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 
@@ -226,6 +272,36 @@ public class Location_Activity extends AppCompatActivity implements LocationList
             //Toast.makeText(this, "Không thể tim thấy vị trí", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    // Lấy địa chỉ cụ thể từ kinh độ và vĩ độ
+    public void getAddress(double latitude, double longtitude) {
+        Geocoder geocoder;
+        List<Address> address;
+        geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            address = geocoder.getFromLocation(latitude, longtitude, 1);
+            String _address = address.get(0).getAddressLine(0);
+            String _city = address.get(0).getLocality();
+            String _area = address.get(0).getAdminArea();
+            String _country = address.get(0).getCountryName();
+            String _knowName = address.get(0).getFeatureName();
+            String _number = address.get(0).getLocale().getDisplayCountry();
+
+            tvLocation.setText("Địa chỉ: " + _address);
+        } catch (IOException e) {
+
+        }
+
+    }
+
+    // Xử lý button hoàn tất
+    public void btnDone(View view) {
+        //Đóng tất cả các màn hình khác, về màn hình chính
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override

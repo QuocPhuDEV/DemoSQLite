@@ -1,9 +1,16 @@
 package com.example.hoangquocphu.demosqlite.Questions_Type;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,8 +25,10 @@ import com.example.hoangquocphu.demosqlite.Answer.CheckBox_Answer_Activity;
 import com.example.hoangquocphu.demosqlite.Answer.Input_Answer_Activity;
 import com.example.hoangquocphu.demosqlite.Answer.Select_Answer_Activity;
 import com.example.hoangquocphu.demosqlite.Answer.YesNo_Answer_Activity;
+import com.example.hoangquocphu.demosqlite.Location.Location_Activity;
 import com.example.hoangquocphu.demosqlite.Questions_ExpandableList.Ques_Detail_List_Activity;
 import com.example.hoangquocphu.demosqlite.R;
+import com.google.android.gms.maps.LocationSource;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -54,7 +63,10 @@ public class QuesType_List_Activity extends AppCompatActivity {
     public String TIME = "";
     public int TOTAL_ANSWER = 0;
 
-
+    // Khai báo biến lấy GPS
+    public LocationManager locationManager;
+    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1;
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000;
     //endregion
 
     @Override
@@ -86,6 +98,7 @@ public class QuesType_List_Activity extends AppCompatActivity {
     //region Ánh xạ đối tượng
     public void addObjects() {
         listView = (ListView) findViewById(R.id.lvQuestion);
+        GPS();
     }
     //endregion
 
@@ -163,8 +176,10 @@ public class QuesType_List_Activity extends AppCompatActivity {
 //                + "Câu hỏi: " + QUESTION_NAME
 //                + "Trả lời: " + ANSWER
 //                + "Thời gian: " + TIME, Toast.LENGTH_SHORT).show();
-        SaveData();
-        this.onBackPressed();
+//        SaveData();
+//        this.onBackPressed();
+
+        getGPS();
     }
 
     // Đếm số câu hỏi đã trả lời
@@ -197,6 +212,69 @@ public class QuesType_List_Activity extends AppCompatActivity {
 
             // Insert xuống database
             an_dbHelper.addAnswer(answer, getApplicationContext());
+        }
+    }
+
+    // Lấy vị trí GPS
+    public void GPS() {
+
+        // Khai báo đối tượng locationManager
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        // Kiểm tra quyền truy cập
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        // Gán giá trị location
+        locationManager.requestLocationUpdates(
+                locationManager.GPS_PROVIDER,
+                MINIMUM_TIME_BETWEEN_UPDATES,
+                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                new MyLocationListener()
+        );
+    }
+
+    public void getGPS() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location != null) {
+//            Toast.makeText(this, "Kinh độ: " + location.getLongitude()
+//                    + "\n" + "Vĩ độ: " + location.getLatitude(), Toast.LENGTH_LONG).show();
+        }
+
+        Intent intent = new Intent(getApplicationContext(), Location_Activity.class);
+        intent.putExtra("Longitude", location.getLongitude());
+        intent.putExtra("Latitude", location.getLatitude());
+
+        //10.766466,106.6893233
+//        intent.putExtra("Longitude", 106.6893233);
+//        intent.putExtra("Latitude", 10.766466);
+        startActivity(intent);
+
+    }
+
+    private class MyLocationListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(Location location) {
+
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
         }
     }
     //endregion

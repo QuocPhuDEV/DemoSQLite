@@ -3,6 +3,7 @@ package com.example.hoangquocphu.demosqlite.QRCode;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,8 +28,12 @@ public class Scan_Result_Activity extends AppCompatActivity {
         btnBack = (Button) findViewById(R.id.btnScanBack);
     }
 
-    public void addEvents(){
+    public void addEvents() {
         Intent intent = getIntent();
-        textView.setText(intent.getStringExtra("result"));
+        textView.setText("QR Code không đúng định dạng" + "\n" + "Vui lòng thử lại !");
+    }
+
+    public void btnBackScan(View view) {
+        this.onBackPressed();
     }
 }

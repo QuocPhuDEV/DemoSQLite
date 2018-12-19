@@ -11,21 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@color/red"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Scan Result"
+        android:text="Thông báo lỗi"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
         android:textSize="20dp" />
 
     <TextView
+        android:id="@+id/tvShowResultScan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:padding="10dp"
         android:text="Scan Result"
-        android:textColor="@android:color/holo_blue_light"
-        android:textSize="40dp"
-        android:id="@+id/tvShowResultScan"/>
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="40dp" />
 
     <Button
         android:id="@+id/btnScanBack"
@@ -33,8 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="New Scan"
-        android:textColor="@color/white"
-        android:background="@drawable/radius_button"/>
+        android:background="@drawable/radius_button"
+        android:onClick="btnBackScan"
+        android:text="Thử lại"
+        android:textColor="@color/white" />
 
 </LinearLayout>

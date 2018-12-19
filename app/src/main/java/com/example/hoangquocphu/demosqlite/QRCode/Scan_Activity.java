@@ -2,6 +2,7 @@ package com.example.hoangquocphu.demosqlite.QRCode;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
@@ -134,32 +135,33 @@ public class Scan_Activity extends AppCompatActivity {
                         public void run() {
 
                             String scanResult = sparseArray.valueAt(0).displayValue;
-                            //cameraSource.stop();
 
-                            // Truyền biến sang màn hình kết quả
-//                            Intent intent = new Intent(getApplicationContext(), Scan_Result_Activity.class);
-//                            intent.putExtra("result", scanResult.toString());
-//                            startActivity(intent);
+                            // Kiểm tra định dạng của QRCode Scan
+                            if (checkFormatQRCode(scanResult)) {
 
+                                // Kiểm tra sự tồn tại của mã scan trong
+                                if (checkExist(scanResult) != 0) {
+                                    //Toast.makeText(Scan_Activity.this, "QR Code đã scan!", Toast.LENGTH_SHORT).show();
+                                } else {
 
-                            // Kiểm tra sự tồn tại của mã scan trong
-                            if (checkExist(scanResult) != 0) {
-                                //Toast.makeText(Scan_Activity.this, "QR Code đã scan!", Toast.LENGTH_SHORT).show();
+                                    // rung sau khi scan
+                                    Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                                    vibrator.vibrate(10);
+
+                                    // phát âm thanh
+                                    mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.scanone);
+                                    mediaPlayer.start();
+
+                                    // Insert xuống database
+                                    SaveDataScan(scanResult);
+
+                                    // Load lại lưới
+                                    loadListView();
+                                }
                             } else {
-
-                                // rung sau khi scan
-                                Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                                vibrator.vibrate(10);
-
-                                // phát âm thanh
-                                mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.scanone);
-                                mediaPlayer.start();
-
-                                // Insert xuống database
-                                SaveDataScan(scanResult);
-
-                                // Load lại lưới
-                                loadListView();
+                                cameraSource.stop();
+                                Intent intent = new Intent(getApplicationContext(), Scan_Result_Activity.class);
+                                startActivity(intent);
                             }
 
                         }
@@ -239,6 +241,16 @@ public class Scan_Activity extends AppCompatActivity {
         Scan_DBHelper scan_dbHelper = new Scan_DBHelper(this);
         scan_dbHelper.deleteAllData();
         loadListView();
+    }
+
+    // Kiểm tra định dạng QRCode Scan
+    public boolean checkFormatQRCode(String scanResult) {
+        List<String> list = new ArrayList<>(Arrays.asList(scanResult.split(";")));
+        if (list.size() < 8) {
+            return false;
+        } else {
+            return true;
+        }
     }
     //endregion
 }
