@@ -51,7 +51,7 @@
         <activity android:name=".HistoryServey.History_Servey_Activity" />
         <activity android:name=".Location.Location_Activity" />
         <activity android:name=".Location.GoogleMaps_Activity" />
-        <activity android:name=".QRCode.Scan_Zxing_Activity"></activity>
+        <activity android:name=".QRCode_Scan_Zxing.Scan_Zxing_Activity"></activity>
     </application>
 
 </manifest>

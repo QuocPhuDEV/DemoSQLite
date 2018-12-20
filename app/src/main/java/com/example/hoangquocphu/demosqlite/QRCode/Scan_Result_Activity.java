@@ -30,7 +30,8 @@ public class Scan_Result_Activity extends AppCompatActivity {
 
     public void addEvents() {
         Intent intent = getIntent();
-        textView.setText("QR Code không đúng định dạng" + "\n" + "Vui lòng thử lại !");
+        //textView.setText("QR Code không đúng định dạng" + "\n" + "Vui lòng thử lại !");
+        textView.setText(intent.getStringExtra("KQ"));
     }
 
     public void btnBackScan(View view) {
