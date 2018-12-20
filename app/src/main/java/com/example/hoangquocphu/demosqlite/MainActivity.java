@@ -17,6 +17,7 @@ import com.example.hoangquocphu.demosqlite.Location.GoogleMaps_Activity;
 import com.example.hoangquocphu.demosqlite.Location.Location;
 import com.example.hoangquocphu.demosqlite.Location.Location_Activity;
 import com.example.hoangquocphu.demosqlite.QRCode.Scan_Activity;
+import com.example.hoangquocphu.demosqlite.QRCode.Scan_Zxing_Activity;
 import com.example.hoangquocphu.demosqlite.Questions_ExpandableList.Ques_AddNew_Activity;
 import com.example.hoangquocphu.demosqlite.Questions_Type.QuesType_AddNew_Activity;
 import com.example.hoangquocphu.demosqlite.Questions_Type.QuesType_List_Activity;
@@ -120,7 +121,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnScanQRCode(View view) {
-        Intent intent = new Intent(MainActivity.this, Scan_Activity.class);
+//        Intent intent = new Intent(MainActivity.this, Scan_Activity.class);
+//        startActivity(intent);
+
+        Intent intent = new Intent(MainActivity.this, Scan_Zxing_Activity.class);
         startActivity(intent);
     }
 

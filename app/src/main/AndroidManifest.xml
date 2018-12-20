@@ -20,7 +20,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDV2_xy58r15K6TskZy4KWMuhUDVq67jqM" />
-        <!--android:value="AIzaSyDV2_xy58r15K6TskZy4KWMuhUDVq67jqM" />-->
+        <!-- android:value="AIzaSyDV2_xy58r15K6TskZy4KWMuhUDVq67jqM" /> -->
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -50,7 +50,8 @@
         <activity android:name=".Answer.Select_Answer_Activity" />
         <activity android:name=".HistoryServey.History_Servey_Activity" />
         <activity android:name=".Location.Location_Activity" />
-        <activity android:name=".Location.GoogleMaps_Activity"></activity>
+        <activity android:name=".Location.GoogleMaps_Activity" />
+        <activity android:name=".QRCode.Scan_Zxing_Activity"></activity>
     </application>
 
 </manifest>
