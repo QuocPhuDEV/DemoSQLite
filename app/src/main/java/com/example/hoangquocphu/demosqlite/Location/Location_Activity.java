@@ -50,6 +50,10 @@ public class Location_Activity extends AppCompatActivity implements LocationList
     public double Longitude = 0;
     public double Latitude = 0;
 
+    // Kiểm tra tính khả dụng của
+    public boolean isGPSEnabled = false;
+    public boolean isNETWORK = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,8 +197,6 @@ public class Location_Activity extends AppCompatActivity implements LocationList
     }
 
     // Tìm vị trí cụ thể thông qua GPS hoặc NETWORK
-    // NÊN LƯU Ý PHẦN NÀY, NẾU LẤY THÔNG QUA NETWORK THÌ SẼ CHÍNH XÁC HƠN
-    // NHƯNG NẾU KHÔNG CÓ MẠNG THÌ BUỘC PHẢI LẤY QUA GPS
     private String getEnabledLocationProvider() {
 
         try {
@@ -206,14 +208,14 @@ public class Location_Activity extends AppCompatActivity implements LocationList
             criteria.setAccuracy(Criteria.ACCURACY_FINE);
             criteria.setCostAllowed(false);
 
-            // Gán vị trí khả dụng
+            // Kiểm tra chức năng khả dụng ( GPS hay NETWORK)
             String bestProvider = locationManager.getBestProvider(criteria, true);
 
             boolean enabled = locationManager.isProviderEnabled(bestProvider);
             //boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
             if (!enabled) {
-                Toast.makeText(this, "Không có vị trí khả dụng", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "GPS hoặc NETWORK không khả dụng", Toast.LENGTH_LONG).show();
                 return null;
             }
             return bestProvider;
@@ -230,8 +232,13 @@ public class Location_Activity extends AppCompatActivity implements LocationList
 
 
             //String locationProvider = this.getEnabledLocationProvider();
+
             // Lấy vị trí trục tiếp theo network
             String locationProvider = LocationManager.NETWORK_PROVIDER;
+
+            // Kiểm tra network hay GPS khả dụng
+            //String locationProvider = checkGPSorNETWORK();
+
 
             if (locationProvider == null) {
                 return;
@@ -324,6 +331,39 @@ public class Location_Activity extends AppCompatActivity implements LocationList
 
         }
 
+    }
+
+    // Kiểm tra tình trạng khả dụng của GPS và NETWORK
+    // NÊN LƯU Ý PHẦN NÀY, NẾU LẤY THÔNG QUA NETWORK THÌ SẼ CHÍNH XÁC HƠN
+    // NHƯNG NẾU KHÔNG CÓ MẠNG THÌ BUỘC PHẢI LẤY QUA GPS
+    
+    public String checkGPSorNETWORK() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        String locationProvider = "";
+        try {
+
+
+            // Kiểm tra tình trạng GPS
+            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            // Kiểm tra tình trạng NETWORK
+            isNETWORK = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            if (isGPSEnabled != false && isNETWORK != false) {
+                Toast.makeText(this, "Vui lòng kiểm tra tình trạng GPS hoặc NETWORK.", Toast.LENGTH_SHORT).show();
+            } else {
+                if (isGPSEnabled) {
+                    locationProvider = LocationManager.GPS_PROVIDER;
+                }
+                if (isNETWORK) {
+                    locationProvider = LocationManager.NETWORK_PROVIDER;
+                }
+            }
+
+        } catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        return locationProvider;
     }
 
     // Xử lý button hoàn tất
