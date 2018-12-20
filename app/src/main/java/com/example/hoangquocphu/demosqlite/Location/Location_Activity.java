@@ -228,7 +228,9 @@ public class Location_Activity extends AppCompatActivity implements LocationList
         try {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+
             //String locationProvider = this.getEnabledLocationProvider();
+            // Lấy vị trí trục tiếp theo network
             String locationProvider = LocationManager.NETWORK_PROVIDER;
 
             if (locationProvider == null) {

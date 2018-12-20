@@ -248,6 +248,11 @@ public class QuesType_List_Activity extends AppCompatActivity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
+
+            // Tìm vị trí cụ thể thông qua GPS hoặc NETWORK
+            // NÊN LƯU Ý PHẦN NÀY, NẾU LẤY THÔNG QUA NETWORK THÌ SẼ CHÍNH XÁC HƠN
+            // NHƯNG NẾU KHÔNG CÓ MẠNG THÌ BUỘC PHẢI LẤY QUA GPS
+
             //Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location != null) {
