@@ -231,14 +231,13 @@ public class QuesType_List_Activity extends AppCompatActivity {
             }
             // Gán giá trị location
             locationManager.requestLocationUpdates(
-                    //locationManager.GPS_PROVIDER,
-                    LocationManager.NETWORK_PROVIDER,
+                    locationManager.GPS_PROVIDER,
                     MINIMUM_TIME_BETWEEN_UPDATES,
                     MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                     new MyLocationListener()
             );
         } catch (Exception e) {
-            Toast.makeText(this, "Vị trí hiện tại không khả dụng.", Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -248,13 +247,7 @@ public class QuesType_List_Activity extends AppCompatActivity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-
-            // Tìm vị trí cụ thể thông qua GPS hoặc NETWORK
-            // NÊN LƯU Ý PHẦN NÀY, NẾU LẤY THÔNG QUA NETWORK THÌ SẼ CHÍNH XÁC HƠN
-            // NHƯNG NẾU KHÔNG CÓ MẠNG THÌ BUỘC PHẢI LẤY QUA GPS
-
-            //Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
 //            Toast.makeText(this, "Kinh độ: " + location.getLongitude()
 //                    + "\n" + "Vĩ độ: " + location.getLatitude(), Toast.LENGTH_LONG).show();
@@ -263,18 +256,11 @@ public class QuesType_List_Activity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), Location_Activity.class);
             intent.putExtra("Longitude", location.getLongitude());
             intent.putExtra("Latitude", location.getLatitude());
-//10.9037401,106.7412925
-//        intent.putExtra("Longitude", 106.7412925);
-//        intent.putExtra("Latitude", 10.9037401);
+
+//        intent.putExtra("Longitude", 106.6893233);
+//        intent.putExtra("Latitude", 10.766466);
             startActivity(intent);
 
-        } catch (Exception e) {
-            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void getGPSVersion2() {
-        try {
         } catch (Exception e) {
 
         }
