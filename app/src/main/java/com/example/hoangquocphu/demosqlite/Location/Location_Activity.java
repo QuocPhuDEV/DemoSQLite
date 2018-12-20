@@ -192,7 +192,9 @@ public class Location_Activity extends AppCompatActivity implements LocationList
         }
     }
 
-    // Tìm vị trí cụ thể
+    // Tìm vị trí cụ thể thông qua GPS hoặc NETWORK
+    // NÊN LƯU Ý PHẦN NÀY, NẾU LẤY THÔNG QUA NETWORK THÌ SẼ CHÍNH XÁC HƠN
+    // NHƯNG NẾU KHÔNG CÓ MẠNG THÌ BUỘC PHẢI LẤY QUA GPS
     private String getEnabledLocationProvider() {
 
         try {
@@ -226,7 +228,8 @@ public class Location_Activity extends AppCompatActivity implements LocationList
         try {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-            String locationProvider = this.getEnabledLocationProvider();
+            //String locationProvider = this.getEnabledLocationProvider();
+            String locationProvider = LocationManager.NETWORK_PROVIDER;
 
             if (locationProvider == null) {
                 return;
