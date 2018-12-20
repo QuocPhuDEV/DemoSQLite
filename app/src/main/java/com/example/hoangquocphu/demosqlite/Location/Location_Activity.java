@@ -60,7 +60,7 @@ public class Location_Activity extends AppCompatActivity implements LocationList
         setContentView(R.layout.activity_location_);
 
         addObject();
-        formLoad();
+        //formLoad();
 
         // Tạo Progress Bar.
         myProgress = new ProgressDialog(this);
@@ -119,7 +119,10 @@ public class Location_Activity extends AppCompatActivity implements LocationList
             });
 
             // Set kiểu hiển thị của Map
+//            myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+//            myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+//            myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
             // Set kiểu Zoom map
             myMap.getUiSettings().setZoomControlsEnabled(true);
@@ -336,7 +339,7 @@ public class Location_Activity extends AppCompatActivity implements LocationList
     // Kiểm tra tình trạng khả dụng của GPS và NETWORK
     // NÊN LƯU Ý PHẦN NÀY, NẾU LẤY THÔNG QUA NETWORK THÌ SẼ CHÍNH XÁC HƠN
     // NHƯNG NẾU KHÔNG CÓ MẠNG THÌ BUỘC PHẢI LẤY QUA GPS
-    
+
     public String checkGPSorNETWORK() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         String locationProvider = "";

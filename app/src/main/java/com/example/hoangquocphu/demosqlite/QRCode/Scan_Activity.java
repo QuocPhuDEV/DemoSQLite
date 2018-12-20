@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -56,6 +58,8 @@ public class Scan_Activity extends AppCompatActivity {
     private String MA_HANG = "";
     private String SOID = "";
     private String SCAN_TIME = "";
+
+    public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
     //endregion
 
     @Override
@@ -250,6 +254,31 @@ public class Scan_Activity extends AppCompatActivity {
             return false;
         } else {
             return true;
+        }
+    }
+
+    // Check quyền truy cập camera
+    private void askPermissionsAndShowMyLocation() {
+
+        try {
+            // Nếu API> = 23, hiển thị thông báo hỏi người dùng về quyền truy cập
+            if (Build.VERSION.SDK_INT >= 23) {
+                int accessCamera
+                        = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
+
+                if (accessCamera != PackageManager.PERMISSION_GRANTED) {
+                    // Hỏi quyền từ người dùng
+                    String[] permissions = new String[]{Manifest.permission.CAMERA};
+                    // Hiển thị dialog xác nhận
+                    ActivityCompat.requestPermissions(this, permissions,
+                            REQUEST_ID_ACCESS_COURSE_FINE_LOCATION);
+
+                    return;
+                }
+            }
+        } catch (Exception e) {
+
         }
     }
     //endregion
