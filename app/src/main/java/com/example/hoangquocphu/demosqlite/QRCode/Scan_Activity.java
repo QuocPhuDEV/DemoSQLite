@@ -164,6 +164,10 @@ public class Scan_Activity extends AppCompatActivity {
                                 }
                             } else {
                                 cameraSource.stop();
+
+                                mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.error);
+                                mediaPlayer.start();
+
                                 Intent intent = new Intent(getApplicationContext(), Scan_Result_Activity.class);
                                 startActivity(intent);
                             }

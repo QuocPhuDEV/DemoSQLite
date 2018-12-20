@@ -237,10 +237,10 @@ public class Location_Activity extends AppCompatActivity implements LocationList
             //String locationProvider = this.getEnabledLocationProvider();
 
             // Lấy vị trí trục tiếp theo network
-            String locationProvider = LocationManager.NETWORK_PROVIDER;
+            //String locationProvider = LocationManager.NETWORK_PROVIDER;
 
             // Kiểm tra network hay GPS khả dụng
-            //String locationProvider = checkGPSorNETWORK();
+            String locationProvider = checkGPSorNETWORK();
 
 
             if (locationProvider == null) {
@@ -341,10 +341,10 @@ public class Location_Activity extends AppCompatActivity implements LocationList
     // NHƯNG NẾU KHÔNG CÓ MẠNG THÌ BUỘC PHẢI LẤY QUA GPS
 
     public String checkGPSorNETWORK() {
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        String locationProvider = "";
-        try {
 
+        try {
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            String locationProvider = "";
 
             // Kiểm tra tình trạng GPS
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -352,8 +352,8 @@ public class Location_Activity extends AppCompatActivity implements LocationList
             // Kiểm tra tình trạng NETWORK
             isNETWORK = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-            if (isGPSEnabled != false && isNETWORK != false) {
-                Toast.makeText(this, "Vui lòng kiểm tra tình trạng GPS hoặc NETWORK.", Toast.LENGTH_SHORT).show();
+            if (isGPSEnabled == false && isNETWORK == false) {
+                Toast.makeText(this, "Vui lòng kiểm tra tình trạng GPS và NETWORK.", Toast.LENGTH_SHORT).show();
             } else {
                 if (isGPSEnabled) {
                     locationProvider = LocationManager.GPS_PROVIDER;
@@ -362,11 +362,11 @@ public class Location_Activity extends AppCompatActivity implements LocationList
                     locationProvider = LocationManager.NETWORK_PROVIDER;
                 }
             }
-
+            return locationProvider;
         } catch (Exception ex) {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+            return null;
         }
-        return locationProvider;
     }
 
     // Xử lý button hoàn tất
