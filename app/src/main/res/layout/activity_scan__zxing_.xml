@@ -48,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/radius_button"
                 android:onClick="deleteAllData"
                 android:text="Clear"
@@ -87,7 +88,7 @@
         <ListView
             android:id="@+id/lvShowScanResult"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
+            android:layout_height="280dp"></ListView>
     </LinearLayout>
 
 </LinearLayout>

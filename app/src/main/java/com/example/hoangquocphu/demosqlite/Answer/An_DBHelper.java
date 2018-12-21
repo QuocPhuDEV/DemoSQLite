@@ -61,7 +61,7 @@ public class An_DBHelper extends SQLiteOpenHelper {
         database.insert(TABLE_NAME, null, values);
 
         // Thông báo
-        Toast.makeText(context, "Lưu khảo sát thành công!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Lưu khảo sát thành công!", Toast.LENGTH_SHORT).show();
         // đóng kết nối
         database.close();
     }
