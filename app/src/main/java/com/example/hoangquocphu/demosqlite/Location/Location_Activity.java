@@ -121,10 +121,7 @@ public class Location_Activity extends AppCompatActivity implements LocationList
             });
 
             // Set kiểu hiển thị của Map
-//            myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-//            myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-//            myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
             // Set kiểu Zoom map
             myMap.getUiSettings().setZoomControlsEnabled(true);

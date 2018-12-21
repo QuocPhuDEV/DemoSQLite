@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -59,7 +60,7 @@ public class Scan_Activity extends AppCompatActivity {
     private String SOID = "";
     private String SCAN_TIME = "";
 
-    public static final int REQUEST_ID_ACCESS_CAMERA = 1;
+    public static final int REQUEST_ID_ACCESS_CAMERA = 100;
     //endregion
 
     @Override
@@ -277,12 +278,35 @@ public class Scan_Activity extends AppCompatActivity {
                     // Hiển thị dialog xác nhận
                     ActivityCompat.requestPermissions(this, permissions, REQUEST_ID_ACCESS_CAMERA);
 
-                    return;
+                    //return;
                 }
             }
         } catch (Exception e) {
 
         }
     }
+
+    // Sau khi người dùng xác nhận quyền truy cập camera
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        try {
+//            switch (requestCode) {
+//                case REQUEST_ID_ACCESS_CAMERA: {
+//                    // Gán quyền khi người dùng xác nhận
+//                    if (grantResults.length > 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                        Toast.makeText(this, "Xác nhận truy cập camera.", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(this, "Chưa cấp quyền truy cập camera.", Toast.LENGTH_SHORT).show();
+//                    }
+//                    break;
+//                }
+//            }
+//        } catch (Exception ex) {
+//
+//        }
+//    }
+
     //endregion
 }
