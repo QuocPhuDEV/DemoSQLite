@@ -16,6 +16,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -339,7 +341,6 @@ public class Location_Activity extends AppCompatActivity implements LocationList
     // Kiểm tra tình trạng khả dụng của GPS và NETWORK
     // NÊN LƯU Ý PHẦN NÀY, NẾU LẤY THÔNG QUA NETWORK THÌ SẼ CHÍNH XÁC HƠN
     // NHƯNG NẾU KHÔNG CÓ MẠNG THÌ BUỘC PHẢI LẤY QUA GPS
-
     public String checkGPSorNETWORK() {
 
         try {
@@ -375,6 +376,29 @@ public class Location_Activity extends AppCompatActivity implements LocationList
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    // Load Danh sách loại map
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.map_menu, menu);
+        return true;
+    }
+
+    // Lựa chọn loại map
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.itemNormal) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        } else if (id == R.id.itemHybrid) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        } else if (id == R.id.itemSatellite) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        } else if (id == R.id.itemTerrain) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

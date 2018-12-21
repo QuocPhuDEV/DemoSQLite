@@ -59,7 +59,7 @@ public class Scan_Activity extends AppCompatActivity {
     private String SOID = "";
     private String SCAN_TIME = "";
 
-    public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
+    public static final int REQUEST_ID_ACCESS_CAMERA = 1;
     //endregion
 
     @Override
@@ -68,6 +68,7 @@ public class Scan_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_scan_);
 
         addObject();
+        askPermissionsAndShowMyLocation();
         addEvents();
         loadListView();
     }
@@ -267,16 +268,14 @@ public class Scan_Activity extends AppCompatActivity {
         try {
             // Nếu API> = 23, hiển thị thông báo hỏi người dùng về quyền truy cập
             if (Build.VERSION.SDK_INT >= 23) {
-                int accessCamera
-                        = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+                int accessCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
 
                 if (accessCamera != PackageManager.PERMISSION_GRANTED) {
                     // Hỏi quyền từ người dùng
                     String[] permissions = new String[]{Manifest.permission.CAMERA};
                     // Hiển thị dialog xác nhận
-                    ActivityCompat.requestPermissions(this, permissions,
-                            REQUEST_ID_ACCESS_COURSE_FINE_LOCATION);
+                    ActivityCompat.requestPermissions(this, permissions, REQUEST_ID_ACCESS_CAMERA);
 
                     return;
                 }

@@ -13,6 +13,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.hoangquocphu.demosqlite.R;
@@ -54,6 +56,26 @@ public class GoogleMaps_Activity extends AppCompatActivity implements OnMapReady
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.map_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.itemNormal) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        } else if (id == R.id.itemHybrid) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        } else if (id == R.id.itemSatellite) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        } else if (id == R.id.itemTerrain) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

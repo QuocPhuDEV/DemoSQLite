@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemNormal"
+        android:title="Map tiêu chuẩn" />
+
+    <item
+        android:id="@+id/itemHybrid"
+        android:title="Map tổng hợp" />
+    <item
+        android:id="@+id/itemSatellite"
+        android:title="Map vệ tinh" />
+    <item
+        android:id="@+id/itemTerrain"
+        android:title="Map địa hình" />
+
+</menu>
