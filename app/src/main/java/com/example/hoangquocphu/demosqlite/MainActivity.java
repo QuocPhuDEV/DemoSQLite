@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = new Intent(MainActivity.this, Scan_Activity.class);
 //        startActivity(intent);
 
-        Intent intent = new Intent(MainActivity.this, Scan_Activity.class);
+        Intent intent = new Intent(MainActivity.this, Scan_Zxing_Activity.class);
         startActivity(intent);
     }
 

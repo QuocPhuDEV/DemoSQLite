@@ -58,11 +58,12 @@ public class Scan implements Serializable {
 
     @Override
     public String toString() {
-        return "Scan{" +
-                "idScan=" + idScan +
-                ", maHang='" + maHang + '\'' +
-                ", soID='" + soID + '\'' +
-                ", scanTime='" + scanTime + '\'' +
-                '}';
+//        return "Scan{" +
+//                "idScan=" + idScan +
+//                ", maHang='" + maHang + '\'' +
+//                ", soID='" + soID + '\'' +
+//                ", scanTime='" + scanTime + '\'' +
+//                '}';
+        return maHang + ";" + soID;
     }
 }
