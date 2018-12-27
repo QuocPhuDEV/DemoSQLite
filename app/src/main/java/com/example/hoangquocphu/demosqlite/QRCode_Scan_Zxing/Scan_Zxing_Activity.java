@@ -94,7 +94,7 @@ public class Scan_Zxing_Activity extends AppCompatActivity implements ZXingScann
         listView = (ListView) findViewById(R.id.lvShowScanResult);
         btnClearScan = (Button) findViewById(R.id.btnClearScan);
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout_Scan);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.linearLayout_Scan);
         layout.clearAnimation();
         layout.addView(zXingScannerView);
     }
@@ -302,9 +302,9 @@ public class Scan_Zxing_Activity extends AppCompatActivity implements ZXingScann
 
     // Đọc url
     public void readUrlLink(String _part, String _serial) {
-        //String url = "http://192.168.200.191/api/carton/savelabel?partno=" + _part + "&serial=" + _serial + "";
-        String url = "http://192.168.1.102/api/carton/savelabel?partno=" + _part + "&serial=" + _serial + "";
-        String urls = url.replace("\u001d","");
+        String url = "http://192.168.200.191/api/carton/savelabel?partno=" + _part + "&serial=" + _serial + "";
+        //String url = "http://192.168.1.102/api/carton/savelabel?partno=" + _part + "&serial=" + _serial + "";
+        String urls = url.replace("\u001d", "");
         new MyJsonTask().execute(urls);
     }
 

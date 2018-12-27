@@ -31,7 +31,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/radiusimagesactivitylogin"
-                android:src="@drawable/avt2" />
+                android:src="@drawable/avt3" />
         </LinearLayout>
 
         <LinearLayout
