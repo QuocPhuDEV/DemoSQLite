@@ -1,15 +1,25 @@
 package com.example.hoangquocphu.demosqlite.QRCode_Scan_Zxing;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Camera;
 import android.hardware.camera2.CameraManager;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hoangquocphu.demosqlite.JsonReader.JsonReader;
 import com.example.hoangquocphu.demosqlite.QRCode.Scan;
 import com.example.hoangquocphu.demosqlite.QRCode.Scan_Adapter;
 import com.example.hoangquocphu.demosqlite.QRCode.Scan_DBHelper;
@@ -27,6 +38,10 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.zxing.Result;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,6 +72,8 @@ public class Scan_Zxing_Activity extends AppCompatActivity implements ZXingScann
     private String SCAN_TIME = "";
 
     public static final int REQUEST_ID_ACCESS_COURSE_FINE_LOCATION = 100;
+
+    public static String TAG = null;
     //endregion
 
 
@@ -142,6 +159,27 @@ public class Scan_Zxing_Activity extends AppCompatActivity implements ZXingScann
         }
     }
 
+    //region LOAD MENU
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.products_menu_item, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.itemSendData) {
+//            Intent intent = new Intent(this, SignIn_Activity.class);
+//            startActivity(intent);
+            sendData();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //endregion
+
     //region XỬ LÝ ACTION
 
     // Thêm dữ liệu đã scan vào database
@@ -221,6 +259,120 @@ public class Scan_Zxing_Activity extends AppCompatActivity implements ZXingScann
             return false;
         } else {
             return true;
+        }
+    }
+
+    //endregion
+
+    //region XỬ LÝ SEND DATA
+
+    // Xử lý đa tiến trình
+    public class MyJsonTask extends AsyncTask<String, JSONObject, Void> {
+
+        public ProgressDialog dialog = new ProgressDialog(Scan_Zxing_Activity.this);
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Sending....");
+            dialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            // Lấy URL truyền vào
+            String url = strings[0];
+            JSONObject jsonObject;
+            try {
+                // Đọc Json và chuyển về Object
+                jsonObject = JsonReader.readFileJsonFromUrl(url);
+                publishProgress(jsonObject);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            dialog.dismiss();
+        }
+    }
+
+    // Đọc url
+    public void readUrlLink(String _part, String _serial) {
+        //String url = "http://192.168.200.191/api/carton/savelabel?partno=" + _part + "&serial=" + _serial + "";
+        String url = "http://192.168.1.102/api/carton/savelabel?partno=" + _part + "&serial=" + _serial + "";
+        String urls = url.replace("\u001d","");
+        new MyJsonTask().execute(urls);
+    }
+
+    // Send nhiều dữ liệu
+    public void sendData() {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        alertDialog.setTitle("Confirm Request");
+        alertDialog.setMessage("Are you sure send data to server ?");
+
+        DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        ConfirmSendData();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+
+        };
+
+        alertDialog.setPositiveButton("Sure", clickListener);
+        alertDialog.setNegativeButton("Cancel", clickListener);
+        alertDialog.setIcon(R.drawable.userquestion);
+        alertDialog.show();
+
+    }
+
+    // Add data từ textbox xuống listview
+    public void btnAddData(View view) {
+//        if (TextUtils.isEmpty(edPartNo.getText().toString()) || TextUtils.isEmpty(edSerial.getText().toString())) {
+//            //Toast.makeText(this, "You need enter PartNo and Serial", Toast.LENGTH_SHORT).show();
+//            edPartNo.setError("Enter PartNo");
+//            edSerial.setError("Enter Serial");
+//        } else {
+//            listData.add(new String("Part No:\t" + edPartNo.getText().toString() + "\t" + "\t" + "\t"
+//                    + "Serial:\t" + edSerial.getText().toString()));
+//
+//            arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData);
+//            listView.setAdapter(arrayAdapter);
+//
+//            edPartNo.setText(null);
+//            edSerial.setText(null);
+//            edPartNo.requestFocus();
+//        }
+    }
+
+    // Confirm send data
+    public void ConfirmSendData() {
+
+        if (listItems.size() < 1) {
+            Toast.makeText(this, "No have data to send to server!", Toast.LENGTH_SHORT).show();
+        } else {
+            Log.e(TAG, "------------------------------------- begin send data");
+            for (int i = 0; i < listItems.size(); i++) {
+
+                List<String> list = new ArrayList<>(Arrays.asList(listItems.get(i).toString().split(";")));
+                MA_HANG = list.get(0).toString();
+                SOID = list.get(1).toString();
+
+                readUrlLink(MA_HANG, SOID);
+            }
+            Toast.makeText(Scan_Zxing_Activity.this, "Send data successfully!", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "------------------------------------- end send data");
         }
     }
 
