@@ -166,7 +166,7 @@ public class Login_Activity extends AppCompatActivity {
 
     // Đọc url
     public void readUrlLink() {
-        String url = "http://192.168.200.191/api/user/login?userid=" + edUser.getText() + "&password=" + edPassword.getText();
+        String url = "http://192.168.200.190/api/user/login?userid=" + edUser.getText() + "&password=" + edPassword.getText();
         //String url = "http://192.168.1.102/api/user/login?userid=" + edUser.getText() + "&password=" + edPassword.getText();
         new MyJsonTask().execute(url);
     }
