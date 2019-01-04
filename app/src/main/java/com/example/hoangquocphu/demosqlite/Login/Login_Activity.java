@@ -45,6 +45,7 @@ public class Login_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_login_);
 
         addEvents();
+        getPhoneNumber();
     }
 
     //region ÁNH XẠ ĐỐI TƯỢNG
@@ -160,8 +161,8 @@ public class Login_Activity extends AppCompatActivity {
 
     // Xử lý button cancel
     public void btnCancel(View view) {
-        //System.exit(0);
-        getPhoneNumber();
+        System.exit(0);
+        //getPhoneNumber();
     }
 
     // Đọc url
@@ -185,7 +186,9 @@ public class Login_Activity extends AppCompatActivity {
             return;
         }
         String mPhoneNumber = manager.getLine1Number();
-        Toast.makeText(this, "" + mPhoneNumber, Toast.LENGTH_SHORT).show();
+        edUser.setText(mPhoneNumber);
+
+        //Toast.makeText(this, "" + mPhoneNumber, Toast.LENGTH_SHORT).show();
 
 //        AccountManager am = AccountManager.get(this);
 //        Account[] accounts = am.getAccounts();

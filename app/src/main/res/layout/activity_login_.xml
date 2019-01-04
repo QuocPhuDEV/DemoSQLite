@@ -64,7 +64,8 @@
                     android:hint="User Login"
                     android:paddingLeft="10dp"
                     android:textColor="#0033FF"
-                    android:textColorHint="@color/dodger_blue" />
+                    android:textColorHint="@color/dodger_blue"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
